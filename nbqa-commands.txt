@@ -1,0 +1,11 @@
+# Reformat the notebook with black
+python -m nbqa black notebook.ipynb
+
+# Sort imports with isort
+python -m nbqa isort notebook.ipynb --float-to-top
+
+# Format markdown cells with blacken-docs
+python -m nbqa blacken-docs notebook.ipynb --nbqa-md --nbqa-diff
+
+# Check type annotations with mypy
+python -m nbqa mypy notebook.ipynb --ignore-missing-imports
