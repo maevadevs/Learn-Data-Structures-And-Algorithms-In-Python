@@ -1,7 +1,7 @@
 venv:
     type: conda
     name: learn_algorithm
-    python: 3.11
+    python: 3.12
 conda_deps:
     conda install jupyterlab
     conda install ipykernel --update-deps --force-reinstall

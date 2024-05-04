@@ -36,7 +36,6 @@ POINTS: Final[GradeMap] = {
 # ---------
 num_courses: int = 0
 total_points: float = 0
-done: bool = False
 grade: str = ""
 
 # Print welcome and instructions
@@ -46,13 +45,13 @@ print("Please enter all your letter grades, one per line.")
 print("Enter a blank line to designate the end.")
 
 # Loop to get user inputs
-while not done:
+while True:
     # Read line from user
     grade = input("Enter the next grade or leave empty if done:").strip()
 
     # Handle when empty line is entered
     if grade == "":
-        done = True
+        break
 
     # Handle when unrecognized grade is entered
     elif grade not in POINTS:
@@ -67,6 +66,27 @@ while not done:
 if num_courses > 0:
     print(f"- Total count of courses: {num_courses}")
     print(f"- Final GPA: {total_points / num_courses:.3}")
+
+
+# Declaring
+# ---------
+# Using these without assigning first results in `NameError`
+age: int
+name: str
+
+# Assigning
+# ---------
+# Without Type-Hints, this would be the same as Declaring and Assigning
+age = 38  # age points to --> In Memory: {type: int, value: 38}
+name = "John"  # name points to --> In Memory: {type: str, value: John}
+
+# Declaring and Assigning
+# -----------------------
+is_alive: bool = True  # is_alive points to --> In Memory: {type: bool, value: True}
+
+print(f"{age = }")
+print(f"{name = }")
+print(f"{is_alive = }")
 
 
 """
@@ -106,17 +126,17 @@ from typing import Final
 
 # This is an identifier that points to the value 98.5 in memory
 ACTUAL_TEMP: Final[float] = 98.5
-print("ACTUAL_TEMP:", ACTUAL_TEMP)
+print(f"{ACTUAL_TEMP = }")
 
 # This is an alias that points to the same value 98.5 in memory
 today_temp: float = ACTUAL_TEMP
-print("today_temp:", today_temp)
+print(f"{today_temp = }")
 
 # Reassigning a new value to an alias breaks the alias
 # because it would then point to a different value in memory
 today_temp = 32.0
 print("Changing today_temp:", today_temp)
-print("ACTUAL_TEMP:", ACTUAL_TEMP)
+print(f"{ACTUAL_TEMP = }")
 
 
 # IMPORT MODULES
@@ -145,9 +165,9 @@ EMPLOYEE: Final[Employee] = {
 }
 
 # Showing result
-print(f"Age: {AGE}")
-print(f"Greeting: {GREETINGS}")
-print(f"Employee: {EMPLOYEE}")
+print(f"{AGE = }")
+print(f"{GREETINGS = }")
+print(f"{EMPLOYEE = }")
 
 
 # IMPORT MODULES
@@ -205,9 +225,9 @@ gamma: List[int] = alpha  # another alias of alpha
 beta += [4, 5]  # extends the original list with two more elements
 gamma = gamma + [6, 7]  # reassigns to a new list [1, 2, 3, 4, 5, 6, 7]
 
-print(alpha)  # will be [1, 2, 3, 4, 5]
-print(beta)  # will be [1, 2, 3, 4, 5]
-print(gamma)  # will be [1, 2, 3, 4, 5, 6, 7]
+print(f"{alpha = }")  # will be [1, 2, 3, 4, 5]
+print(f"{beta = }")  # will be [1, 2, 3, 4, 5]
+print(f"{gamma = }")  # will be [1, 2, 3, 4, 5, 6, 7]
 
 
 # IMPORT MODULES
