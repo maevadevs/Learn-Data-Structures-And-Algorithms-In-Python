@@ -33,7 +33,6 @@ POINTS: Final[GradeMap] = {
 # ---------
 num_courses: int = 0
 total_points: float = 0
-done: bool = False
 grade: str = ""
 
 # Print welcome and instructions
@@ -43,17 +42,17 @@ print("Please enter all your letter grades, one per line.")
 print("Enter a blank line to designate the end.")
 
 # Loop to get user inputs
-while not done:
+while True:
     # Read line from user
     grade = input("Enter the next grade or leave empty if done:").strip()
 
     # Handle when empty line is entered
     if grade == "":
-        done = True
+        break
 
     # Handle when unrecognized grade is entered
     elif grade not in POINTS:
-        print(f'Unknown grade "{grade}": It will be skipped and ignored.')
+        print(f"Unknown grade '{grade}': It will be skipped and ignored.")
 
     # For all other cases
     else:

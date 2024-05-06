@@ -26,4 +26,4 @@ SORTED_KWS: Final[List[Kwd]] = [kw for (kw, _) in SORTED_LOWERED_KWS]
 print(f"There are {len(SORTED_KWS)} Keywords in Python {python_version()}:")
 
 # Print the list of keywords
-print(" // ".join(SORTED_KWS))
+print(" | ".join(SORTED_KWS))
