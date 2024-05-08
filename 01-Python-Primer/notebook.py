@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Module: 01.gpa.py
+Module: gpa.py
 This program computes a student's GPA based on letter grades entered by a user.
 """
 
@@ -55,7 +55,7 @@ while True:
 
     # Handle when unrecognized grade is entered
     elif grade not in POINTS:
-        print(f'Unknown grade "{grade}": It will be skipped and ignored.')
+        print(f"Unknown grade '{grade}': It will be skipped and ignored.")
 
     # For all other cases
     else:
@@ -70,19 +70,23 @@ if num_courses > 0:
 
 # Declaring
 # ---------
-# Using these without assigning first results in `NameError`
+# Possible when using Type-Hints
+# But using these without assigning first results in `NameError`
 age: int
 name: str
 
 # Assigning
 # ---------
 # Without Type-Hints, this would be the same as Declaring and Assigning
-age = 38  # age points to --> In Memory: {type: int, value: 38}
-name = "John"  # name points to --> In Memory: {type: str, value: John}
+age = 38
+# age points to --> In Memory Value: {type: int, value: 38}
+name = "John"
+# name points to --> In Memory Value: {type: str, value: John}
 
 # Declaring and Assigning
 # -----------------------
-is_alive: bool = True  # is_alive points to --> In Memory: {type: bool, value: True}
+is_alive: bool = True
+# is_alive points to --> In Memory Value: {type: bool, value: True}
 
 print(f"{age = }")
 print(f"{name = }")
@@ -117,7 +121,7 @@ SORTED_KWS: Final[List[Kwd]] = [kw for (kw, _) in SORTED_LOWERED_KWS]
 print(f"There are {len(SORTED_KWS)} Keywords in Python {python_version()}:")
 
 # Print the list of keywords
-print(" // ".join(SORTED_KWS))
+print(" | ".join(SORTED_KWS))
 
 
 # IMPORT MODULES
@@ -127,16 +131,20 @@ from typing import Final
 # This is an identifier that points to the value 98.5 in memory
 ACTUAL_TEMP: Final[float] = 98.5
 print(f"{ACTUAL_TEMP = }")
+# In_Memory: ACTUAL_TEMP = 0xe2d4a1 --> { type: float, value: 98.5 }
 
 # This is an alias that points to the same value 98.5 in memory
 today_temp: float = ACTUAL_TEMP
 print(f"{today_temp = }")
+# In_Memory: today_temp = 0xe2d4a1 --> { type: float, value: 98.5 }
 
 # Reassigning a new value to an alias breaks the alias
 # because it would then point to a different value in memory
-today_temp = 32.0
+today_temp = today_temp + 5
 print("Changing today_temp:", today_temp)
 print(f"{ACTUAL_TEMP = }")
+# In_Memory: today_temp = 0xffe321 --> { type: float, value: 103.5 }
+# In_Memory: ACTUAL_TEMP = 0xe2d4a1 --> { type: float, value: 98.5 }
 
 
 # IMPORT MODULES
@@ -157,8 +165,8 @@ GREETINGS: Final[str] = "Greetings, Peasants!"
 
 # Literal form of instantiating a dictionary
 EMPLOYEE: Final[Employee] = {
-    "fname": "John",
-    "lname": "Smith",
+    "first_name": "John",
+    "last_name": "Smith",
     "dob": "1970-01-01",
     "is_active": True,
     "lucky_number": 11,
@@ -174,6 +182,24 @@ print(f"{EMPLOYEE = }")
 # --------------
 from typing import List
 
+# Example of a string
+some_str: str = "Hello my friend!"
+
+# We can sort the letters in the string using sorted()
+# By doing so, we get back a new list instead
+list_str: List[str] = sorted(some_str)
+
+# The original argument (some_str) is left untouched
+print(f"{some_str = }")
+
+# sorted() creates and return a new list
+print(f"{list_str = }")
+
+
+# IMPORT MODULES
+# --------------
+from typing import List
+
 # Example of a list
 list_int: List[int] = [34, 67, 4, -1, 30, 255, -300]
 
@@ -182,7 +208,7 @@ list_int: List[int] = [34, 67, 4, -1, 30, 255, -300]
 list_int.sort()
 
 # Showing the list after being sorted
-print(list_int)
+print(f"{list_int = }")
 
 
 # IMPORT MODULES
@@ -195,8 +221,8 @@ from typing import Final
 HELLO: Final[str] = "hello world!"
 
 # Chaining methods
-# A string is immutable. Each call returns a new string
-print(HELLO.capitalize().startswith("h"))
+# A string is immutable: Each method call returns a new string
+print(f"{HELLO.capitalize().startswith('h') = }")
 
 
 # IMPORT MODULES
@@ -206,10 +232,12 @@ from typing import Final, Set
 # CONSTANTS
 # ---------
 # Define a set of characters from a string
-DISTINCT_CHARS: Final[Set[str]] = set("Hello World")
+DISTINCT_CHARS: Final[Set[str]] = set(
+    "Hello World! This is an example of a string".lower()
+)
 
 # Print the value of the set
-print(DISTINCT_CHARS)
+print(f"{DISTINCT_CHARS = }")
 
 
 # IMPORT MODULES
@@ -219,15 +247,15 @@ from typing import List
 # VARIABLES
 # ---------
 alpha: List[int] = [1, 2, 3]
-beta: List[int] = alpha  # an alias of alpha
-gamma: List[int] = alpha  # another alias of alpha
+beta: List[int] = alpha  # An alias of alpha
+gamma: List[int] = alpha  # Another alias of alpha
 
-beta += [4, 5]  # extends the original list with two more elements
-gamma = gamma + [6, 7]  # reassigns to a new list [1, 2, 3, 4, 5, 6, 7]
+beta += [4, 5]  # Extends the original list with two more elements
+gamma = gamma + [6, 7]  # Breaks alias: Reassigns to a NEW list [1, 2, 3, 4, 5, 6, 7]
 
-print(f"{alpha = }")  # will be [1, 2, 3, 4, 5]
-print(f"{beta = }")  # will be [1, 2, 3, 4, 5]
-print(f"{gamma = }")  # will be [1, 2, 3, 4, 5, 6, 7]
+print(f"{alpha = }")  # Will be [1, 2, 3, 4, 5]
+print(f"{beta = }")  # Will be [1, 2, 3, 4, 5]
+print(f"{gamma = }")  # Will be [1, 2, 3, 4, 5, 6, 7]
 
 
 # IMPORT MODULES
@@ -236,13 +264,15 @@ from typing import Final
 
 # CONSTANTS
 # ---------
-YOUR_AGE: Final[int] = 36
+YOUR_AGE: Final[int] = 17
 
 # Conditional
 if YOUR_AGE >= 18:
     print("You are an adult")
-else:
+elif 0 < YOUR_AGE < 18:
     print("You are not old enough")
+else:
+    print("Are you even born yet?")
 
 
 # IMPORT MODULES
@@ -265,6 +295,8 @@ match USER_CHOICE:
         print("What is your favorite fruit?")
 
 
+# Example of `while` Loop
+# -----------------------
 digit_data: str = "9876543210"
 digit: int = 9
 
@@ -273,6 +305,8 @@ while str(digit) in digit_data:
     digit -= 1
 
 
+# Example of `for` Loop
+# ---------------------
 digit_data = "9876543210"
 
 for dgt in digit_data:
@@ -280,35 +314,56 @@ for dgt in digit_data:
     dgt = "1"  # This reassignment has no effect on original data or next value
 
 
+# Finding the Biggest Digit in a String
+# -------------------------------------
+digit_data = "1234567890"
+biggest: int = 0
+
+for el in digit_data:
+    dt: int = int(el)
+    if dt > biggest:
+        biggest = dt
+
+print(f"{biggest} is the biggest digit in {digit_data}")
+
+
+# Using for index in range()
+# --------------------------
 digit_data = "9876543210"
 
-for dt in range(len(digit_data)):
-    print(dt, end=" ")
+for index in range(len(digit_data)):
+    print(index, end=" ")
 
 
+# Using for idx, val in enumerate()
+# ---------------------------------
 digit_data = "9876543210"
 
-for i, v in enumerate(digit_data):
-    print(i, "-", v, end=" / ")
+print("idx   val")
+print("---   ---")
+for idx, val in enumerate(digit_data):
+    print(f" {idx} --> {val}")
 
 
+# Example of using `break`
+# ------------------------
 digit_data = "9876543210"
 
 for dgt in digit_data:
     # Immediately terminate when reaching 4
     if dgt == "4":
         break
-
     print(dgt, end=" ")
 
 
+# Example of using `continue`
+# ---------------------------
 digit_data = "9876543210"
 
 for dgt in digit_data:
-    # Skip even numbers
+    # Skip all even numbers
     if int(dgt) % 2 == 0:
         continue
-
     print(dgt, end=" ")
 
 
@@ -322,15 +377,18 @@ TCount = TypeVar("TCount", str, int, float, bool)
 
 
 # Example of a function
+# ---------------------
 def count(target: TCount, data: Iterable[TCount]) -> int:
-    """Counts the number of occurrences of a given target value within any form of iterable data set.
+    """Counts the number of occurrences of a given `target` value within any form of iterable `data` set.
 
     Args:
-        - `target` (`TypeVar("TCount", str, int, float, bool)`): The target value
-        - `data` (`Iterable[TCount]`): The iterable
+        `target` (`TypeVar("TCount", str, int, float, bool)`): The target value
+        `data` (`Iterable[TCount]`): The iterable set
 
     Returns:
         `int`: The number of occurences of `target` within `data`
+
+    The `target` can be any value of type `str`, `int`, `float`, or `bool`.
     """
 
     # The count of occurences
@@ -345,15 +403,17 @@ def count(target: TCount, data: Iterable[TCount]) -> int:
     return count
 
 
-print(count("a", "abracadabra"))
+# Example of Function Runtime
+# ---------------------------
+print(f'{count("a", "abracadabra") = }')
 
 
 def contains(target: str, data: str) -> bool:
-    """Checks whether a target string is contained in another string.
+    """Checks whether a `target` string is contained in another `data` string or not.
 
     Args:
-        - `target` (`str`): The string to check if being contained
-        - `data` (`str`): The string to check into if it contains the `target` string
+        `target` (`str`): The string to check if being contained
+        `data` (`str`): The string to check into if it contains the `target` string
 
     Returns:
         `bool`: Whether the `target` string is contained in `data` or not
@@ -368,7 +428,7 @@ def contains(target: str, data: str) -> bool:
     return False
 
 
-print(contains(target="zzz", data="Hello World"))
+print(f'{contains(target="zzz", data="Hello World") = }')
 
 
 # IMPORT MODULES
@@ -393,10 +453,11 @@ def scale(data: List[TNumeric], factor: TNumeric) -> None:
 
 
 primes_4: List[int] = [2, 3, 5, 7]
+print(f"Before scale(primes_4, 50): {primes_4 = }")
 # List is a mutable object
 scale(primes_4, 50)
 # The state of the actual parameter have been affected
-print(primes_4)
+print(f"After scale(primes_4, 50): {primes_4 = }")
 
 
 # IMPORT MODULES
@@ -407,34 +468,35 @@ from typing import Final, List, TypeAlias
 # ------------
 GradeMap2: TypeAlias = dict[str, float]
 
-# CONSTANTS
-# ---------
-# Map of letter grades to point values
-POINTS2: Final[GradeMap2] = {
-    "A+": 4.0,
-    "A": 4.0,
-    "A-": 3.67,
-    "B+": 3.33,
-    "B": 3.0,
-    "B-": 2.67,
-    "C+": 2.33,
-    "C": 2.0,
-    "C-": 1.67,
-    "D+": 1.33,
-    "D": 1.0,
-    "F": 0.0,
-}
 
-
-def compute_gpa(grades: List[str], points: GradeMap2 = POINTS2) -> float:
+def compute_gpa(
+    grades: List[str],
+    points: GradeMap2 = {
+        "A+": 4.0,
+        "A": 4.0,
+        "A-": 3.67,
+        "B+": 3.33,
+        "B": 3.0,
+        "B-": 2.67,
+        "C+": 2.33,
+        "C": 2.0,
+        "C-": 1.67,
+        "D+": 1.33,
+        "D": 1.0,
+        "F": 0.0,
+    },
+) -> float:
     """Computes a student's GPA based on letter grades entered by a user.
 
     Args:
-        - `grades` (`List[str]`): A list of letter grades
-        - `points` (`GradeMap`, optional): A mapping of letter grades to equivalent GPA point. Defaults to POINTS.
+        `grades` (`List[str]`): A list of letter grades
+        `points` (`GradeMap`, optional): A mapping of letter grades to equivalent GPA point. Defaults to a given GradeMap.
 
     Returns:
         `float`: The final GPA
+
+    While the point system is somewhat common, it may not agree with the system used by all schools.
+    Allowing `points` to be optional allows flexibility to either use the default point system or pass a custom mapping.
     """
 
     # Declare and initialize variables
@@ -442,20 +504,28 @@ def compute_gpa(grades: List[str], points: GradeMap2 = POINTS2) -> float:
     total_points: float = 0
 
     for g in grades:
-        if g in points:  # a recognizable grade
+        if g in points:
+            # It is a recognizable grade
             num_courses += 1
             total_points += points[g]
 
     return total_points / num_courses
 
 
-print(compute_gpa(["A", "A+", "B+", "B"]))
+print(f'{compute_gpa(["A", "A+", "B+", "B"]) = }')
 
 
-user_age: int = int(input("Enter your age in years: "))
+try:
+    user_age: int = int(input("Enter your age in years: "))
+except ValueError:
+    print("That was not a valid age. Defaulting age to average: 25.")
+    user_age = 25
+
 max_heart_rate: float = 206.9 - (0.67 * user_age)  # As per Med Sci Sports Exerc
 target_heart_rate: float = 0.65 * max_heart_rate
-print("Your target fat-burning heart rate is", target_heart_rate)
+print(
+    f"If your age is {user_age},\nthen your target fat-burning heart rate is {target_heart_rate:.2f}."
+)
 
 
 # IMPORT MODULES
@@ -909,4 +979,3 @@ import math
 print(f"PI = {math.pi}")
 print(f"E = {math.e}")
 print(f"sqrt(8) = {math.sqrt(8)}")
-
