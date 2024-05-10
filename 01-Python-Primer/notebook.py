@@ -515,17 +515,21 @@ def compute_gpa(
 print(f'{compute_gpa(["A", "A+", "B+", "B"]) = }')
 
 
+# Example of Asking User Input
+# ----------------------------
+user_age: int
+
 try:
-    user_age: int = int(input("Enter your age in years: "))
+    user_age = int(input("Enter your age in years: "))
 except ValueError:
     print("That was not a valid age. Defaulting age to average: 25.")
     user_age = 25
 
-max_heart_rate: float = 206.9 - (0.67 * user_age)  # As per Med Sci Sports Exerc
+# Heart Rates formula as per Med Sci Sports Exerc
+max_heart_rate: float = 206.9 - (0.67 * user_age)
 target_heart_rate: float = 0.65 * max_heart_rate
-print(
-    f"If your age is {user_age},\nthen your target fat-burning heart rate is {target_heart_rate:.2f}."
-)
+print(f"If your age is {user_age}, ", end="")
+print(f"then your target fat-burning heart rate is {target_heart_rate:.2f}.")
 
 
 # IMPORT MODULES
