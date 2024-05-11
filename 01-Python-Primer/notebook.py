@@ -916,29 +916,32 @@ for k, v in person.items():
     print(k, v)
 
 
-# Declaring the variables types in advance
+# Declaring the variable types in advance
 x0: int
 y0: int
 z0: int
 
-# Simulataneous assignment
+# Simultaneous assignment
 x0, y0, z0 = 6, 2, 5
 
 print(x0, y0, z0)
 
 
+print("Before:", x0, y0)
 x0, y0 = y0, x0
-print(x0, y0)
+print("After:", x0, y0)
 
 
 # Declare variable
 temp: int
 
+print("Before:", x0, y0)
+
 # Value swapping is equivalent to the following snippet
 temp = y0
 y0 = x0
 x0 = temp
-print(x0, y0)
+print("After:", x0, y0)
 
 
 def fibonacci_gen_2() -> Generator[int, None, None]:
@@ -971,11 +974,14 @@ def simple_test_func() -> None:
     x: int = 3
     y: int = 4
 
+    print(f"{x = }")
+    print(f"{y = }")
+
     # Print a list of all local variables
-    print(f"dir(): {dir()}")
+    print(f"{dir() = }")
 
     # Print a key:value mapping of all local variables
-    print(f"vars(): {vars()}")
+    print(f"{vars() = }")
 
 
 simple_test_func()
