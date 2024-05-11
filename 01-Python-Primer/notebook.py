@@ -634,11 +634,11 @@ from typing import Iterator
 nums_ints: List[int] = [1, 2, 3, 4, 5]  # Iterable
 iter_nums: Iterator[int] = iter(nums_ints)  # Iterator
 
-print(next(iter_nums))  # => 1
-print(next(iter_nums))  # => 2
-print(next(iter_nums))  # => 3
-print(next(iter_nums))  # => 4
-print(next(iter_nums))  # => 5
+print(next(iter_nums), end=" ")  # => 1
+print(next(iter_nums), end=" ")  # => 2
+print(next(iter_nums), end=" ")  # => 3
+print(next(iter_nums), end=" ")  # => 4
+print(next(iter_nums), end=" ")  # => 5
 
 
 # IMPORT MODULES
@@ -882,12 +882,11 @@ from typing import Tuple
 
 
 def simple_return() -> Tuple[int, ...]:
-    """Return a demo packed tuple
+    """Return a demo packed tuple.
 
     Returns:
         `Tuple[int]`: A tuple of integers
     """
-
     return 1, 2, 3, 4
 
 
@@ -903,6 +902,12 @@ a, b, c, d = simple_return()
 
 print(a, b, c, d)
 
+
+a, b = divmod(94, 5)
+print(a, b)
+
+
+from typing import Any
 
 person: dict[str, Any] = {"fname": "John", "lname": "Appleseed", "age": 30}
 
