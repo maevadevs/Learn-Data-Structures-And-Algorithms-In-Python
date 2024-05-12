@@ -392,15 +392,15 @@ def count(target: TCount, data: Iterable[TCount]) -> int:
     """
 
     # The count of occurences
-    count: int = 0
+    cnt: int = 0
 
     # Loop through the items in the data
     for item in data:
         if item == target:
-            count += 1
+            cnt += 1
 
     # Return count of occurences
-    return count
+    return cnt
 
 
 # Example of Function Runtime
@@ -462,7 +462,7 @@ print(f"After scale(primes_4, 50): {primes_4 = }")
 
 # IMPORT MODULES
 # --------------
-from typing import Final, List, TypeAlias
+from typing import List, TypeAlias
 
 # CUSTOM TYPES
 # ------------
