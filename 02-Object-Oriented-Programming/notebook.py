@@ -38,6 +38,14 @@ def scale_complete(data: list[int], factor: int) -> None:
         data[j] *= factor
 
 
+"""
+Module: credit_card.py
+This is a simple implementation of a CreditCard class.
+"""
+
+
+# DEFINE CLASS
+# ------------
 class CreditCard:
     """A consumer credit card class"""
 
@@ -151,7 +159,8 @@ class CreditCard:
 
 
 # Calling the class constructor to create a new instance of CreditCard
-cc1: CreditCard = CreditCard("John Doe", "1st Bank", "5391 0375 9387 5309", 1000)
+# --------------------------------------------------------------------
+cc1: CreditCard = CreditCard("John Doe", "First Bank", "5432 1098 7654 3210", 1000)
 cc2: CreditCard = CreditCard(
     customer="Mary Bell",
     bank="Chase",
@@ -162,7 +171,6 @@ cc2: CreditCard = CreditCard(
 
 print(f"CC1 Customer: {cc1.get_customer()}")
 print(f"CC1 Balance: {cc1.get_balance()}")
-
 print(f"CC2 Customer: {cc2.get_customer()}")
 print(f"CC2 Balance: {cc2.get_balance()}")
 
@@ -190,17 +198,23 @@ if __name__ == "__main__":
 
     # Test methods on all credit cards
     for c in range(3):
-        print("Customer =", wallet[c].get_customer())
-        print("Bank =", wallet[c].get_bank())
-        print("Account =", wallet[c].get_account())
-        print("Limit =", wallet[c].get_limit())
-        print("Balance =", wallet[c].get_balance())
+        print(f"Customer = {wallet[c].get_customer()}")
+        print(f"Bank = {wallet[c].get_bank()}")
+        print(f"Account = {wallet[c].get_account()}")
+        print(f"Limit = {wallet[c].get_limit()}")
+        print(f"Balance = {wallet[c].get_balance()}")
 
         while wallet[c].get_balance() > 100:
             wallet[c].make_payment(100)
-            print("New balance =", wallet[c].get_balance())
+            print(f"New balance = {wallet[c].get_balance()}")
 
         print()
+
+
+"""
+Module: vector.py
+This is a simple implementation of a Vector class.
+"""
 
 
 class Vector:
@@ -321,11 +335,17 @@ print(u)  # print <0, 46, 0, 0, 90>
 total: int = 0
 
 # implicit iteration via len and getitem
-# However, this is not compatible with mypy
+# However, this is currently not compatible with mypy
+# It is better to implement `__iter__` directly
 # for entry in v:
 #     total += entry
 # print(entry)
 
+
+"""
+Module: sequence_iterator.py
+This is a simple implementation of a SequenceIterator class.
+"""
 
 # IMPORT MODULES
 # --------------
@@ -343,8 +363,8 @@ class SequenceIterator:
         Args:
             - `sequence` (`Sequence[Any]`): The sequence to create an iterator for
         """
-        self._seq = sequence  # keep a reference to the underlying data
-        self._k = -1  # will increment to 0 on first call to next
+        self._seq: Sequence[Any] = sequence  # keep a reference to the underlying data
+        self._k: int = -1  # will increment to 0 on first call to next
 
     def __next__(self) -> Any:
         """Return the next element, or else raise StopIteration error.
@@ -369,6 +389,11 @@ class SequenceIterator:
         """
         return self
 
+
+"""
+Module: range.py
+This is a simple implementation of a Range class.
+"""
 
 # IMPORT MODULES
 # --------------
@@ -396,13 +421,13 @@ class Range:
         if step == 0:
             raise ValueError("step cannot be 0")
 
-        if stop is None:  # special case of range(n)
-            start, stop = 0, start  # should be treated as if range(0,n)
+        if stop is None:  # Special case of range(n)
+            start, stop = 0, start  # Should be treated as if range(0,n)
 
-        # calculate the effective length once
+        # Calculate the effective length once
         self._length: int = max(0, (stop - start + step - 1) // step)
 
-        # need knowledge of start and step (but not stop) to support getitem
+        # Need knowledge of start and step (but not stop) to support getitem
         self._start: int = start
         self._step: int = step
 
@@ -427,7 +452,7 @@ class Range:
             - `int`: The entry at the given index
         """
         if k < 0:
-            k += len(self)  # attempt to convert negative index
+            k += len(self)  # Attempt to convert negative index
 
         if not 0 <= k < self._length:
             raise IndexError("index out of range")
@@ -452,11 +477,11 @@ class PredatoryCreditCard(CreditCard):
 
         The initial balance is zero.
         """
-        super().__init__(customer, bank, acnt, limit)  # call super constructor
+        super().__init__(customer, bank, acnt, limit)  # Call super constructor
         self._apr: float = apr
 
     def charge(self, price: float) -> bool:
-        """Charge given price to the card, assuming sufficient credit limit.
+        """Charge a given price to the card, assuming sufficient credit limit.
 
         Args:
             - `price` (`float`): The price that is charged to the credit card
@@ -464,19 +489,25 @@ class PredatoryCreditCard(CreditCard):
         Returns:
             - `bool`: `True` if charge was processed, `False` and assess 5 fee if charge is denied
         """
-        _success: bool = super().charge(price)  # call inherited method
+        _success: bool = super().charge(price)  # Call inherited method
 
         if not _success:
-            self._balance += 5  # assess penalty
+            self._balance += 5  # Assess penalty
 
-        return _success  # caller expects return value
+        return _success  # Caller expects return value
 
     def process_month(self) -> None:
         """Assess monthly interest on outstanding balance."""
         if self._balance > 0:
-            # if positive balance, convert APR to monthly multiplicative factor
+            # If positive balance, convert APR to monthly multiplicative factor
             monthly_factor: float = pow(1 + self._apr, 1 / 12)
             self._balance *= monthly_factor
+
+
+"""
+Module: progression.py
+This is a simple implementation of Progression classes.
+"""
 
 
 class Progression:
@@ -510,12 +541,12 @@ class Progression:
         Returns:
             - `int`: The next element in the iterator
         """
-        if self._current is None:  # our convention to end a progression
+        if self._current is None:  # Our convention to end a progression
             raise StopIteration()
         else:
-            answer: int = self._current  # record current value to return
-            self._advance()  # advance to prepare for next time
-            return answer  # return the answer
+            answer: int = self._current  # Record current value to return
+            self._advance()  # Advance to prepare for next time
+            return answer  # Return the answer
 
     def __iter__(self) -> "Progression":
         """By convention, an iterator must return itself as an iterator
@@ -534,7 +565,7 @@ class Progression:
         print(" ".join(str(next(self)) for _ in range(n)))
 
 
-class ArithmeticProgression(Progression):  # inherit from Progression
+class ArithmeticProgression(Progression):  # Inherit from Progression
     """Iterator producing an arithmetic progression."""
 
     def __init__(self, increment: int = 1, start: int = 0) -> None:
@@ -544,15 +575,15 @@ class ArithmeticProgression(Progression):  # inherit from Progression
             - `increment` (`int`, optional): The fixed constant to add to each term. Defaults to `1`.
             - `start` (`int`, optional): The first term of the progression. Defaults to `0`.
         """
-        super().__init__(start)  # initialize base class
+        super().__init__(start)  # Initialize base class
         self._increment: int = increment
 
-    def _advance(self) -> None:  # override inherited version
+    def _advance(self) -> None:  # Override inherited version
         """Update current value by adding the fixed increment."""
         self._current += self._increment
 
 
-class GeometricProgression(Progression):  # inherit from Progression
+class GeometricProgression(Progression):  # Inherit from Progression
     """Iterator producing a geometric progression."""
 
     def __init__(self, base: int = 2, start: int = 1) -> None:
@@ -565,7 +596,7 @@ class GeometricProgression(Progression):  # inherit from Progression
         super().__init__(start)
         self._base: int = base
 
-    def _advance(self) -> None:  # override inherited version
+    def _advance(self) -> None:  # Override inherited version
         """Update current value by multiplying it by the base value."""
         self._current *= self._base
 
@@ -580,8 +611,8 @@ class FibonacciProgression(Progression):
             - `first` (`int`, optional): The first term of the progression. Defaults to `0`.
             - `second` (`int`, optional): The second term of the progression. Defaults to `1`.
         """
-        super().__init__(first)  # start progression at first
-        self._prev: int = second - first  # fictitious value preceding the first
+        super().__init__(first)  # Start progression at first
+        self._prev: int = second - first  # Fictitious value preceding the first
 
     def _advance(self) -> None:
         """Update current value by taking sum of previous two."""
