@@ -1,3 +1,9 @@
+"""
+Module: progression.py
+This is a simple implementation of Progression classes.
+"""
+
+
 # IMPLEMENT CLASS
 # ---------------
 class Progression:
@@ -31,12 +37,12 @@ class Progression:
         Returns:
             - `int`: The next element in the iterator
         """
-        if self._current is None:  # our convention to end a progression
+        if self._current is None:  # Our convention to end a progression
             raise StopIteration()
         else:
-            answer: int = self._current  # record current value to return
-            self._advance()  # advance to prepare for next time
-            return answer  # return the answer
+            answer: int = self._current  # Record current value to return
+            self._advance()  # Advance to prepare for next time
+            return answer  # Return the answer
 
     def __iter__(self) -> "Progression":
         """By convention, an iterator must return itself as an iterator
@@ -57,7 +63,7 @@ class Progression:
 
 # IMPLEMENT CLASS
 # ---------------
-class ArithmeticProgression(Progression):  # inherit from Progression
+class ArithmeticProgression(Progression):  # Inherit from Progression
     """Iterator producing an arithmetic progression."""
 
     def __init__(self, increment: int = 1, start: int = 0) -> None:
@@ -67,17 +73,17 @@ class ArithmeticProgression(Progression):  # inherit from Progression
             - `increment` (`int`, optional): The fixed constant to add to each term. Defaults to `1`.
             - `start` (`int`, optional): The first term of the progression. Defaults to `0`.
         """
-        super().__init__(start)  # initialize base class
+        super().__init__(start)  # Initialize base class
         self._increment: int = increment
 
-    def _advance(self) -> None:  # override inherited version
+    def _advance(self) -> None:  # Override inherited version
         """Update current value by adding the fixed increment."""
         self._current += self._increment
 
 
 # IMPLEMENT CLASS
 # ---------------
-class GeometricProgression(Progression):  # inherit from Progression
+class GeometricProgression(Progression):  # Inherit from Progression
     """Iterator producing a geometric progression."""
 
     def __init__(self, base: int = 2, start: int = 1) -> None:
@@ -90,7 +96,7 @@ class GeometricProgression(Progression):  # inherit from Progression
         super().__init__(start)
         self._base: int = base
 
-    def _advance(self) -> None:  # override inherited version
+    def _advance(self) -> None:  # Override inherited version
         """Update current value by multiplying it by the base value."""
         self._current *= self._base
 
@@ -107,8 +113,8 @@ class FibonacciProgression(Progression):
             - `first` (`int`, optional): The first term of the progression. Defaults to `0`.
             - `second` (`int`, optional): The second term of the progression. Defaults to `1`.
         """
-        super().__init__(first)  # start progression at first
-        self._prev: int = second - first  # fictitious value preceding the first
+        super().__init__(first)  # Start progression at first
+        self._prev: int = second - first  # Fictitious value preceding the first
 
     def _advance(self) -> None:
         """Update current value by taking sum of previous two."""

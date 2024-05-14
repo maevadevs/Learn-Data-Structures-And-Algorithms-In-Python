@@ -147,11 +147,11 @@ class PredatoryCreditCard(CreditCard):
 
         The initial balance is zero.
         """
-        super().__init__(customer, bank, acnt, limit)  # call super constructor
+        super().__init__(customer, bank, acnt, limit)  # Call super constructor
         self._apr: float = apr
 
     def charge(self, price: float) -> bool:
-        """Charge given price to the card, assuming sufficient credit limit.
+        """Charge a given price to the card, assuming sufficient credit limit.
 
         Args:
             - `price` (`float`): The price that is charged to the credit card
@@ -159,17 +159,17 @@ class PredatoryCreditCard(CreditCard):
         Returns:
             - `bool`: `True` if charge was processed, `False` and assess 5 fee if charge is denied
         """
-        _success: bool = super().charge(price)  # call inherited method
+        _success: bool = super().charge(price)  # Call inherited method
 
         if not _success:
-            self._balance += PredatoryCreditCard.OVERLIMIT_FEE  # assess penalty
+            self._balance += PredatoryCreditCard.OVERLIMIT_FEE  # Assess penalty
 
-        return _success  # caller expects return value
+        return _success  # Caller expects return value
 
     def process_month(self) -> None:
         """Assess monthly interest on outstanding balance."""
         if self._balance > 0:
-            # if positive balance, convert APR to monthly multiplicative factor
+            # If positive balance, convert APR to monthly multiplicative factor
             monthly_factor: float = pow(1 + self._apr, 1 / 12)
             self._balance *= monthly_factor
 
