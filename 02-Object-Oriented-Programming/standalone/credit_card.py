@@ -210,3 +210,55 @@ if __name__ == "__main__":
             print(f"New balance = {wallet[c].get_balance()}")
 
         print()
+
+
+# DEFINE CLASS
+# ------------
+class PredatoryCreditCardV2(CreditCard):
+    """An extension to CreditCard that compounds interest and fees."""
+
+    # Class Data Members
+    # ------------------
+    OVERLIMIT_FEE: Final[float] = 5.00
+
+    # Class Methods
+    # -------------
+    def __init__(
+        self, customer: str, bank: str, acnt: str, limit: float, apr: float
+    ) -> None:
+        """Create a new predatory credit card instance.
+
+        Args:
+            - `customer` (`str`): The name of the customer (e.g., John Bowman )
+            - `bank` (`str`): The name of the bank (e.g., California Savings )
+            - `acnt` (`str`): The acount identifier (e.g., 5391 0375 9387 5309 )
+            - `limit` (`float`): Credit limit (measured in dollars)
+            - `apr` (`float`): Annual percentage rate (e.g., 0.0825 for 8.25% APR)
+
+        The initial balance is zero.
+        """
+        super().__init__(customer, bank, acnt, limit)  # call super constructor
+        self._apr: float = apr
+
+    def charge(self, price: float) -> bool:
+        """Charge given price to the card, assuming sufficient credit limit.
+
+        Args:
+            - `price` (`float`): The price that is charged to the credit card
+
+        Returns:
+            - `bool`: `True` if charge was processed, `False` and assess 5 fee if charge is denied
+        """
+        _success: bool = super().charge(price)  # call inherited method
+
+        if not _success:
+            self._balance += PredatoryCreditCardV2.OVERLIMIT_FEE  # assess penalty
+
+        return _success  # caller expects return value
+
+    def process_month(self) -> None:
+        """Assess monthly interest on outstanding balance."""
+        if self._balance > 0:
+            # if positive balance, convert APR to monthly multiplicative factor
+            monthly_factor: float = pow(1 + self._apr, 1 / 12)
+            self._balance *= monthly_factor
