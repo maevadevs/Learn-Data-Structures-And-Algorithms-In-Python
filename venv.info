@@ -1,10 +1,12 @@
 venv:
     type: conda
-    name: learn_algorithm
+    name: learn_dsa
     python: 3.12
-conda_deps:
-    conda install jupyterlab
-    conda install nbconvert
-    conda install ipykernel --update-deps --force-reinstall
-pip_deps:
-    python -m pip install "nbqa[toolchain]" # nbQA contains black and mypy
+commands:
+    dependencies:
+        conda:
+            conda install python=3.12
+            conda install jupyterlab nbconvert
+            conda install ipykernel --update-deps --force-reinstall
+        pip:
+            python -m pip install "nbqa[toolchain]" # nbQA contains black and mypy
