@@ -26,27 +26,28 @@
 #   3.0.0  2024-05-06  Maeva Ralafiarindaza : Convert into Python script
 ##################################################################################################
 # Imports
+import re
 import black
 import mypy
 import mypy.api
 import nbformat
-import re
 
 # import subprocess
-from nbconvert import PythonExporter
 from os import path
 from pathlib import Path
 from sys import argv, exit as sysexit
+from typing import Any, Final
+from nbconvert import PythonExporter
 
 ##################################################################################################
 # ACTION ITEM: Input the name of the project folder
-PROJ_DIR = "Learn-Data-Structures-And-Algorithms-In-Python"
+PROJ_DIR: Final[str] = "02.Data-Structures-And-Algorithms-In-Python-Book"
 ##################################################################################################
 
 # Get file arguments
-SUBFOLDER = argv[1]
-FILENAME = argv[2]
-opts = {
+SUBFOLDER: Final[str] = argv[1]
+FILENAME: Final[str] = argv[2]
+opts: dict[str, bool] = {
     "nomypy": False,
     "keepcells": False,
     "keepmd": False,
@@ -57,17 +58,21 @@ for k in opts:
         opts[k] = True
 
 # Path variables
-CURRENT_PATH = path.abspath(__file__)  # Absolute path
-CURRENT_DIR_ABS = Path(__file__).parent.resolve()  # Absolute Path
-CURRENT_DIR = path.basename(CURRENT_DIR_ABS)  # Dirname only
+CURRENT_PATH: Final[str] = path.abspath(__file__)  # Absolute path
+CURRENT_DIR_ABS: Final[Path] = Path(__file__).parent.resolve()  # Absolute Path
+CURRENT_DIR: Final[str] = path.basename(CURRENT_DIR_ABS)  # Dirname only
 
 
 # HELPER FUNCTION
 # ---------------
-def convert_ipynb_to_py(notebook_path, module_path, opts):
-    """Convert a .ipynb file to .py"""
+def convert_ipynb_to_py(
+    notebook_path: Path, module_path: Path, options: dict[str, bool]
+) -> None:
+    """Convert a .ipynb file to .py."""
 
-    exporter_configs = {"TemplateExporter": {"exclude_markdown": not opts["keepmd"]}}
+    exporter_configs: dict[str, Any] = {
+        "TemplateExporter": {"exclude_markdown": not options["keepmd"]}
+    }
 
     print()
     print("Converting:")

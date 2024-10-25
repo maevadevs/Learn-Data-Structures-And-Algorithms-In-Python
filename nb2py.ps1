@@ -35,7 +35,7 @@ param (
 )
 ############################################################################################################
 # ACTION ITEM: Input the nae of the project folder
-$PROJ_DIR = "Learn-Data-Structures-And-Algorithms-In-Python"
+$PROJ_DIR = "02.Data-Structures-And-Algorithms-In-Python-Book"
 ############################################################################################################
 
 # Path variables

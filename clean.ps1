@@ -14,7 +14,7 @@
 #   1.0.0   2023-03-22      Maeva Ralafiarindaza    :   INITIAL RELEASE
 ############################################################################################################
 # ACTION ITEMS: List all objects to delete throughout the directory and subdirectories
-$ITEMS_TO_DELETE = @('__pycache__', '.mypy_cache', '.pyc', '.ipynb_checkpoints')
+$ITEMS_TO_DELETE = @('__pycache__', '.mypy_cache', '.pyc', '.ipynb_checkpoints', '.ruff_cache')
 ############################################################################################################
 
 # Variables
