@@ -1,6 +1,6 @@
 # IMPORT MODULES
 # --------------
-from typing import List, TypeAlias
+from typing import TypeAlias
 
 # CUSTOM TYPES
 # ------------
@@ -8,7 +8,7 @@ GradeMap2: TypeAlias = dict[str, float]
 
 
 def compute_gpa(
-    grades: List[str],
+    grades: list[str],
     points: GradeMap2 = {
         "A+": 4.0,
         "A": 4.0,
@@ -27,11 +27,11 @@ def compute_gpa(
     """Computes a student's GPA based on letter grades entered by a user.
 
     Args:
-        `grades` (`List[str]`): A list of letter grades
-        `points` (`GradeMap`, optional): A mapping of letter grades to equivalent GPA point. Defaults to a given GradeMap.
+        - `grades` (`List[str]`): A list of letter grades.
+        - `points` (`GradeMap`, optional): A mapping of letter grades to equivalent GPA point. Defaults to a given GradeMap.
 
     Returns:
-        `float`: The final GPA
+        - `float`: The final GPA.
 
     While the point system is somewhat common, it may not agree with the system used by all schools.
     Allowing `points` to be optional allows flexibility to either use the default point system or pass a custom mapping.

@@ -1,6 +1,6 @@
 # IMPORT MODULES
 # --------------
-from typing import Iterable, List, TypeVar, Generator
+from typing import Iterable, TypeVar, Generator
 
 # CUSTOM TYPES
 # ------------
@@ -14,11 +14,11 @@ def count(target: TCount, data: Iterable[TCount]) -> int:
     """Counts the number of occurrences of a given `target` value within any form of iterable `data` set.
 
     Args:
-        `target` (`TypeVar("TCount", str, int, float, bool)`): The target value
-        `data` (`Iterable[TCount]`): The iterable set
+        - `target` (`TypeVar("TCount", str, int, float, bool)`): The target value.
+        - `data` (`Iterable[TCount]`): The iterable set.
 
     Returns:
-        `int`: The number of occurences of `target` within `data`
+        - `int`: The number of occurences of `target` within `data`
 
     The `target` can be any value of type `str`, `int`, `float`, or `bool`.
     """
@@ -39,11 +39,11 @@ def contains(target: str, data: str) -> bool:
     """Checks whether a `target` string is contained in another `data` string or not.
 
     Args:
-        `target` (`str`): The string to check if being contained
-        `data` (`str`): The string to check into if it contains the `target` string
+        - `target` (`str`): The string to check if being contained.
+        - `data` (`str`): The string to check into if it contains the `target` string.
 
     Returns:
-        `bool`: Whether the `target` string is contained in `data` or not
+        - `bool`: Whether the `target` string is contained in `data` or not.
     """
 
     for item in data:
@@ -55,30 +55,30 @@ def contains(target: str, data: str) -> bool:
     return False
 
 
-def scale(data: List[TNumeric], factor: TNumeric) -> None:
+def scale(data: list[TNumeric], factor: TNumeric) -> None:
     """Multiply all entries of a numeric `data` set by a given `factor`.
 
     Args:
-        `data` (`List[TNumeric]`): A list of numeric data to multiply
-        `factor` (`TNumeric`): The factor to multiply by
+        - `data` (`list[TNumeric]`): A list of numeric data to multiply.
+        - `factor` (`TNumeric`): The factor to multiply by.
     """
 
     for j in range(len(data)):
         data[j] *= factor
 
 
-def factors_func(n: int) -> List[int]:
+def factors_func(n: int) -> list[int]:
     """A traditional function that computes factors.
 
     Args:
         - `n` (`int`): The integer that we want to compute the factors of.
 
     Returns:
-        `List[int]`: The factors of the given number.
+        - `list[int]`: The factors of the given number.
     """
 
     # Store factors in a new list
-    factors: List[int] = []
+    factors: list[int] = []
 
     for k in range(1, n + 1):
         if n % k == 0:  # Divides evenly, thus k is a factor
@@ -90,27 +90,27 @@ def factors_func(n: int) -> List[int]:
 
 
 # List of factors for a given integer
-def factors_func_2(n: int) -> List[int]:
+def factors_func_2(n: int) -> list[int]:
     """A traditional function that computes factors.
 
     Args:
         - `n` (`int`): The integer that we want to compute the factors of.
 
     Returns:
-        `List[int]`: The factors of the given number.
+        - `list[int]`: The factors of the given number.
     """
 
     return [k for k in range(1, n + 1) if n % k == 0]
 
 
 def factors_gen(n: int) -> Generator[int, None, None]:
-    """A generator that computes factors
+    """A generator that computes factors.
 
     Args:
         - `n` (`int`): The integer that we want to compute the factors of.
 
     Yields:
-        `Generator[int, None, None]`: Generator of the factors of `n`
+        - `Generator[int, None, None]`: Generator of the factors of `n`.
     """
 
     for k in range(1, n + 1):
@@ -120,13 +120,13 @@ def factors_gen(n: int) -> Generator[int, None, None]:
 
 
 def factors_gen_2(n: int) -> Generator[int, None, None]:
-    """A generator that computes factors
+    """A generator that computes factors.
 
     Args:
         - `n` (`int`): The integer that we want to compute the factors of.
 
     Yields:
-        `Generator[int, None, None]`: Generator of the factors of `n`
+        - `Generator[int, None, None]`: Generator of the factors of `n`.
     """
 
     # Declare and initialize variables
@@ -143,10 +143,10 @@ def factors_gen_2(n: int) -> Generator[int, None, None]:
 
 
 def fibonacci_gen() -> Generator[int, None, None]:
-    """A generator of fibonaci sequence
+    """A generator of fibonaci sequence.
 
     Yields:
-        `Generator[int, None, None]`: The sequence of Fibonacci numbers
+        - `Generator[int, None, None]`: The sequence of Fibonacci numbers.
     """
 
     # Declare and initialize variables
@@ -161,10 +161,10 @@ def fibonacci_gen() -> Generator[int, None, None]:
 
 
 def fibonacci_gen_2() -> Generator[int, None, None]:
-    """A generator of fibonaci sequence
+    """A generator of fibonaci sequence.
 
     Yields:
-        `Generator[int, None, None]`: The sequence of Fibonacci numbers
+        - `Generator[int, None, None]`: The sequence of Fibonacci numbers.
     """
     # Declare variables
     a: int

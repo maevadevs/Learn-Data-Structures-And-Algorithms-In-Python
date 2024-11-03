@@ -64,6 +64,9 @@ while True:
 
 # Calculate GPA: Avoid division by zero
 if num_courses > 0:
+    print()
+    print("SUMMARY")
+    print("-------")
     print(f"- Total count of courses: {num_courses}")
     print(f"- Final GPA: {total_points / num_courses:.3}")
 
@@ -77,16 +80,18 @@ name: str
 
 # Assigning
 # ---------
-# Without Type-Hints, this would be the same as Declaring and Assigning
+# Without Type-Hints declared above, this would have been
+# the same as Declaring and Assigning
 age = 38
-# age points to --> In Memory Value: {type: int, value: 38}
+# age now points to --> In-Memory Object Value: {type: int, value: 38}
+
 name = "John"
-# name points to --> In Memory Value: {type: str, value: John}
+# name now points to --> In-Memory Object Value: {type: str, value: John}
 
 # Declaring and Assigning
 # -----------------------
 is_alive: bool = True
-# is_alive points to --> In Memory Value: {type: bool, value: True}
+# is_alive now points to --> In-Memory Object Value: {type: bool, value: True}
 
 print(f"{age = }")
 print(f"{name = }")
@@ -102,20 +107,20 @@ This program lists all the keywords in a Python version.
 # --------------
 from keyword import kwlist
 from platform import python_version
-from typing import Final, List, Tuple, TypeAlias
+from typing import Final, TypeAlias
 
 # TYPE ALIASES
 # ------------
-LowerCaseKwd: TypeAlias = Tuple[str, str]
+LowerCaseKwd: TypeAlias = tuple[str, str]
 Kwd: TypeAlias = str
 
 # CONSTANTS
 # ---------
-LOWERED_KWS: Final[List[LowerCaseKwd]] = list(map(lambda kw: (kw, kw.lower()), kwlist))
-SORTED_LOWERED_KWS: Final[List[LowerCaseKwd]] = sorted(
+LOWERED_KWS: Final[list[LowerCaseKwd]] = list(map(lambda kw: (kw, kw.lower()), kwlist))
+SORTED_LOWERED_KWS: Final[list[LowerCaseKwd]] = sorted(
     LOWERED_KWS, key=lambda tup: tup[1]
 )
-SORTED_KWS: Final[List[Kwd]] = [kw for (kw, _) in SORTED_LOWERED_KWS]
+SORTED_KWS: Final[list[Kwd]] = [kw for (kw, _) in SORTED_LOWERED_KWS]
 
 # Print the summary
 print(f"There are {len(SORTED_KWS)} Keywords in Python {python_version()}:")
@@ -128,23 +133,23 @@ print(" | ".join(SORTED_KWS))
 # --------------
 from typing import Final
 
-# This is an identifier that points to the value 98.5 in memory
+# This is an identifier that points to the object-value 98.5 in memory
 ACTUAL_TEMP: Final[float] = 98.5
 print(f"{ACTUAL_TEMP = }")
-# In_Memory: ACTUAL_TEMP = 0xe2d4a1 --> { type: float, value: 98.5 }
+# In-Memory: ACTUAL_TEMP = 0xe2d4a1 --> { type: float, value: 98.5 }
 
-# This is an alias that points to the same value 98.5 in memory
+# This is an alias that points to the same object-value 98.5 in memory
 today_temp: float = ACTUAL_TEMP
 print(f"{today_temp = }")
-# In_Memory: today_temp = 0xe2d4a1 --> { type: float, value: 98.5 }
+# In-Memory: today_temp = 0xe2d4a1 --> { type: float, value: 98.5 }
 
 # Reassigning a new value to an alias breaks the alias
-# because it would then point to a different value in memory
+# because the alias would then point to a different value in memory
 today_temp = today_temp + 5
-print("Changing today_temp:", today_temp)
+print(f"Changing today_temp: {today_temp}")
 print(f"{ACTUAL_TEMP = }")
-# In_Memory: today_temp = 0xffe321 --> { type: float, value: 103.5 }
-# In_Memory: ACTUAL_TEMP = 0xe2d4a1 --> { type: float, value: 98.5 }
+# In-Memory: today_temp = 0xffe321 --> { type: float, value: 103.5 }
+# In-Memory: ACTUAL_TEMP = 0xe2d4a1 --> { type: float, value: 98.5 }
 
 
 # IMPORT MODULES
@@ -161,7 +166,7 @@ Employee: TypeAlias = dict[str, str | int | bool]
 AGE: Final[int] = 36
 
 # Literal form of instantiating a string
-GREETINGS: Final[str] = "Greetings, Peasants!"
+GREETINGS: Final[str] = "Greetings, peasants!"
 
 # Literal form of instantiating a dictionary
 EMPLOYEE: Final[Employee] = {
@@ -178,37 +183,32 @@ print(f"{GREETINGS = }")
 print(f"{EMPLOYEE = }")
 
 
-# IMPORT MODULES
-# --------------
-from typing import List
-
 # Example of a string
 some_str: str = "Hello my friend!"
 
 # We can sort the letters in the string using sorted()
 # By doing so, we get back a new list instead
-list_str: List[str] = sorted(some_str)
+list_str: list[str] = sorted(some_str)
 
 # The original argument (some_str) is left untouched
 print(f"{some_str = }")
 
-# sorted() creates and return a new list
+# sorted() creates and return a new list object
 print(f"{list_str = }")
 
 
-# IMPORT MODULES
-# --------------
-from typing import List
-
 # Example of a list
-list_int: List[int] = [34, 67, 4, -1, 30, 255, -300]
+list_int: list[int] = [34, 67, 4, -1, 30, 255, -300]
+
+# Showing the list before being sorted
+print(f"Before: {list_int = }")
 
 # Calling a list method
-# Unlike sorted(), this does not return a new list but transforms the list itself
+# Unlike sorted(), this does not return a new list but transforms the list instance itself
 list_int.sort()
 
 # Showing the list after being sorted
-print(f"{list_int = }")
+print(f"After: {list_int = }")
 
 
 # IMPORT MODULES
@@ -222,33 +222,29 @@ HELLO: Final[str] = "hello world!"
 
 # Chaining methods
 # A string is immutable: Each method call returns a new string
+print(f"{HELLO = }")
 print(f"{HELLO.capitalize().startswith('h') = }")
 
 
 # IMPORT MODULES
 # --------------
-from typing import Final, Set
+from typing import Final
 
 # CONSTANTS
 # ---------
 # Define a set of characters from a string
-DISTINCT_CHARS: Final[Set[str]] = set(
-    "Hello World! This is an example of a string".lower()
-)
+ORIG_STR: Final[str] = "Hello World! This is an example of a string".lower()
+DISTINCT_CHARS: Final[set[str]] = set(ORIG_STR)
 
 # Print the value of the set
 print(f"{DISTINCT_CHARS = }")
 
 
-# IMPORT MODULES
-# --------------
-from typing import List
-
 # VARIABLES
 # ---------
-alpha: List[int] = [1, 2, 3]
-beta: List[int] = alpha  # An alias of alpha
-gamma: List[int] = alpha  # Another alias of alpha
+alpha: list[int] = [1, 2, 3]
+beta: list[int] = alpha  # An alias of alpha
+gamma: list[int] = alpha  # Another alias of alpha
 
 beta += [4, 5]  # Extends the original list with two more elements
 gamma = gamma + [6, 7]  # Breaks alias: Reassigns to a NEW list [1, 2, 3, 4, 5, 6, 7]
@@ -311,7 +307,9 @@ digit_data = "9876543210"
 
 for dgt in digit_data:
     print(dgt, end=" ")
-    dgt = "1"  # This reassignment has no effect on original data or next value
+
+    # This reassignment has no effect on original data or next value
+    dgt = "1"
 
 
 # Finding the Biggest Digit in a String
@@ -335,14 +333,14 @@ for index in range(len(digit_data)):
     print(index, end=" ")
 
 
-# Using for idx, val in enumerate()
-# ---------------------------------
+# Using for index, value in enumerate()
+# -------------------------------------
 digit_data = "9876543210"
 
-print("idx   val")
-print("---   ---")
-for idx, val in enumerate(digit_data):
-    print(f" {idx} --> {val}")
+print("index   value")
+print("-----   -----")
+for index, value in enumerate(digit_data):
+    print(f"  {index}  -->  {value}")
 
 
 # Example of using `break`
@@ -382,77 +380,81 @@ def count(target: TCount, data: Iterable[TCount]) -> int:
     """Counts the number of occurrences of a given `target` value within any form of iterable `data` set.
 
     Args:
-        `target` (`TypeVar("TCount", str, int, float, bool)`): The target value
-        `data` (`Iterable[TCount]`): The iterable set
+        - `target` (`TypeVar("TCount", str, int, float, bool)`): The target value.
+        - `data` (`Iterable[TCount]`): The iterable set.
 
     Returns:
-        `int`: The number of occurences of `target` within `data`
+        - `int`: The number of occurences of `target` within `data`.
 
     The `target` can be any value of type `str`, `int`, `float`, or `bool`.
     """
 
     # The count of occurences
-    cnt: int = 0
+    counted: int = 0
 
     # Loop through the items in the data
     for item in data:
         if item == target:
-            cnt += 1
+            counted += 1
 
     # Return count of occurences
-    return cnt
+    return counted
 
 
 # Example of Function Runtime
 # ---------------------------
-print(f'{count("a", "abracadabra") = }')
+print(f"{count('a', 'abracadabra') = }")
 
 
-def contains(target: str, data: str) -> bool:
-    """Checks whether a `target` string is contained in another `data` string or not.
+def str_contains(target: str, data: str) -> bool:
+    """Checks whether a `target` string is contained in a `data` string or not.
 
     Args:
-        `target` (`str`): The string to check if being contained
-        `data` (`str`): The string to check into if it contains the `target` string
+        - `target` (`str`): The string to check if being contained.
+        - `data` (`str`): The string to check into if it contains the `target` string.
 
     Returns:
-        `bool`: Whether the `target` string is contained in `data` or not
+        - `bool`: Whether the `target` string is contained in `data` or not.
     """
 
-    for item in data:
-        if item == target:
-            # If here, the item was found
-            return True
+    if len(target) == 1:
+        for item in data:
+            if item == target:
+                # If here, the item was found
+                return True
+        # If here, then not found
+        return False
+    else:  # len(target) > 1
+        return target in data
 
-    # If here, then not found
-    return False
 
-
-print(f'{contains(target="zzz", data="Hello World") = }')
+print(f'{str_contains(target="z", data="Hello World") = }')
+print(f'{str_contains(target="llo", data="Hello World") = }')
 
 
 # IMPORT MODULES
 # --------------
-from typing import List, TypeVar
+from typing import TypeVar
 
 # CUSTOM TYPES
 # ------------
 TNumeric = TypeVar("TNumeric", int, float)
 
 
-def scale(data: List[TNumeric], factor: TNumeric) -> None:
+def scale(data: list[TNumeric], factor: TNumeric) -> None:
     """Multiply all entries of a numeric `data` set by a given `factor`.
 
     Args:
-        `data` (`List[TNumeric]`): A list of numeric data to multiply
-        `factor` (`TNumeric`): The factor to multiply by
+        - `data` (`List[TNumeric]`): A list of numeric data to multiply.
+        - `factor` (`TNumeric`): The factor to multiply by.
     """
 
     for j in range(len(data)):
         data[j] *= factor
 
 
-primes_4: List[int] = [2, 3, 5, 7]
+primes_4: list[int] = [2, 3, 5, 7]
+
 print(f"Before scale(primes_4, 50): {primes_4 = }")
 # List is a mutable object
 scale(primes_4, 50)
@@ -462,7 +464,7 @@ print(f"After scale(primes_4, 50): {primes_4 = }")
 
 # IMPORT MODULES
 # --------------
-from typing import List, TypeAlias
+from typing import TypeAlias
 
 # CUSTOM TYPES
 # ------------
@@ -470,7 +472,7 @@ GradeMap2: TypeAlias = dict[str, float]
 
 
 def compute_gpa(
-    grades: List[str],
+    grades: list[str],
     points: GradeMap2 = {
         "A+": 4.0,
         "A": 4.0,
@@ -489,11 +491,11 @@ def compute_gpa(
     """Computes a student's GPA based on letter grades entered by a user.
 
     Args:
-        `grades` (`List[str]`): A list of letter grades
-        `points` (`GradeMap`, optional): A mapping of letter grades to equivalent GPA point. Defaults to a given GradeMap.
+        - `grades` (`List[str]`): A list of letter grades.
+        - `points` (`GradeMap`, optional): A mapping of letter grades to equivalent GPA point. Defaults to a given GradeMap.
 
     Returns:
-        `float`: The final GPA
+        - `float`: The final GPA.
 
     While the point system is somewhat common, it may not agree with the system used by all schools.
     Allowing `points` to be optional allows flexibility to either use the default point system or pass a custom mapping.
@@ -528,8 +530,8 @@ except ValueError:
 # Heart Rates formula as per Med Sci Sports Exerc
 max_heart_rate: float = 206.9 - (0.67 * user_age)
 target_heart_rate: float = 0.65 * max_heart_rate
-print(f"If your age is {user_age}, ", end="")
-print(f"then your target fat-burning heart rate is {target_heart_rate:.2f}.")
+print(f"Age is {user_age}. ", end="")
+print(f"Target fat-burning heart rate is {target_heart_rate:.2f}.")
 
 
 # IMPORT MODULES
@@ -565,7 +567,7 @@ from collections.abc import Iterable
 
 
 def sum(values: Iterable[TNumeric]) -> TNumeric:
-    """Example of the sum function with extreme checks"""
+    """Example of the sum function with extreme checks."""
 
     if not isinstance(values, Iterable):
         raise TypeError("Parameter must be an iterable type")
@@ -584,7 +586,7 @@ from typing import Any
 
 
 def sum2(values: Any) -> Any:
-    """Example of the sum function without checks"""
+    """Example of the sum function without checks."""
     total: Any = 0
     for v in values:
         total += v
@@ -596,24 +598,27 @@ def sum2(values: Any) -> Any:
 from io import TextIOWrapper
 
 try:
-    fp: TextIOWrapper = open("bad_file_example.txt")
+    fp: TextIOWrapper = open("file_that_does_not_exist_example.txt")
 except IOError as e:
     print(f"Unable to open the file:\n{e}")
 
 
-some_age: int = -1  # an initially invalid choice
+some_age: int = -1  # An initially invalid choice
 
 while some_age <= 0:
     try:
+        # It is possible the user might not enter an integer: ValueError
         some_age = int(input("Enter your age in years:"))
         if some_age <= 0:
             print("Your age must be positive")
     # Handle multiple exceptions at once
     except (ValueError, EOFError):
-        print("Invalid response")
+        print("Invalid response. Please try again.")
+
+print(f"Your age is {some_age}.")
 
 
-some_age = -1  # an initially invalid choice
+some_age = -1  # An initially invalid choice
 
 while some_age <= 0:
     try:
@@ -621,17 +626,17 @@ while some_age <= 0:
         if some_age <= 0:
             print("Your age must be positive")
     except ValueError:
-        print("That is an invalid age specification")
+        print("That is an invalid age specification.")
     except EOFError:
         print("There was an unexpected error reading input.")
-        raise  # let's re-raise this exception
+        raise  # Let's re-raise this exception
 
 
 # IMPORT MODULES
 # --------------
 from typing import Iterator
 
-nums_ints: List[int] = [1, 2, 3, 4, 5]  # Iterable
+nums_ints: list[int] = [1, 2, 3, 4, 5]  # Iterable
 iter_nums: Iterator[int] = iter(nums_ints)  # Iterator
 
 print(next(iter_nums), end=" ")  # => 1
@@ -643,21 +648,20 @@ print(next(iter_nums), end=" ")  # => 5
 
 # IMPORT MODULES
 # --------------
-from typing import List
 
 
-def factors_func(n: int) -> List[int]:
+def factors_func(n: int) -> list[int]:
     """A traditional function that computes factors.
 
     Args:
         - `n` (`int`): The integer that we want to compute the factors of.
 
     Returns:
-        `List[int]`: The factors of the given number.
+        - `list[int]`: The factors of the given number.
     """
 
     # Store factors in a new list
-    factors: List[int] = []
+    factors: list[int] = []
 
     for k in range(1, n + 1):
         if n % k == 0:  # Divides evenly, thus k is a factor
@@ -683,7 +687,7 @@ def factors_gen(n: int) -> Generator[int, None, None]:
         - `n` (`int`): The integer that we want to compute the factors of.
 
     Yields:
-        `Generator[int, None, None]`: Generator of the factors of `n`
+        - `Generator[int, None, None]`: Generator of the factors of `n`
     """
 
     for k in range(1, n + 1):
@@ -697,25 +701,27 @@ for x in factors_gen(100):  # Creates an instance of the generator, which is an 
 
 
 def factors_gen_2(n: int) -> Generator[int, None, None]:
-    """A generator that computes factors
+    """A generator that computes factors.
 
     Args:
         - `n` (`int`): The integer that we want to compute the factors of.
 
     Yields:
-        `Generator[int, None, None]`: Generator of the factors of `n`
+        -`Generator[int, None, None]`: Generator of the factors of `n`.
     """
 
     # Declare and initialize variables
     k: int = 1
 
-    while k * k < n:  # While k < sqrt(n)
+    # While k < sqrt(n)
+    while k * k < n:
         if n % k == 0:
             yield k
             yield n // k
         k += 1
 
-    if k * k == n:  # Special case if n is perfect square
+    # Special case if n is perfect square
+    if k * k == n:
         yield k
 
 
@@ -724,21 +730,24 @@ for x in factors_gen_2(100):
 
 
 def fibonacci_gen() -> Generator[int, None, None]:
-    """A generator of fibonaci sequence
+    """A generator of fibonaci sequence.
 
     Yields:
-        `Generator[int, None, None]`: The sequence of Fibonacci numbers
+        - `Generator[int, None, None]`: The sequence of Fibonacci numbers.
     """
 
     # Declare and initialize variables
     a: int = 0
     b: int = 1
 
-    while True:  # keep going...
-        yield a  # report value, a, during this pass
+    while True:
+        # Report value a during this pass
+        yield a
         future = a + b
-        a = b  # this will be next value reported
-        b = future  # and subsequently this
+        # This will be next value reported
+        a = b
+        # And subsequently this
+        b = future
 
 
 # This would be an infinite loop without an if condition
@@ -751,13 +760,13 @@ for x in fibonacci_gen():
 
 # Absolute Value Using If-Else
 def abs(n: TNumeric) -> TNumeric:
-    """Return the absolute value of a given number
+    """Return the absolute value of a given number.
 
     Args:
-        - `n` (`TNumeric`): The number that we want the absolute value of
+        - `n` (`TNumeric`): The number that we want the absolute value of.
 
     Returns:
-        `TNumeric`: The value of the absolute value
+        - `TNumeric`: The value of the absolute value.
     """
 
     if n >= 0:
@@ -766,44 +775,43 @@ def abs(n: TNumeric) -> TNumeric:
         return -n
 
 
-print(abs(-67))
+print(f"{abs(-67) = }")
 
 
 # Absolute Value Using Conditional Expression
 def abs_val(n: TNumeric) -> TNumeric:
-    """Return the absolute value of a given number
+    """Return the absolute value of a given number.
 
     Args:
-        - `n` (`TNumeric`): The number that we want the absolute value of
+        - `n` (`TNumeric`): The number that we want the absolute value of.
 
     Returns:
-        `TNumeric`: The value of the absolute value
+        - `TNumeric`: The value of the absolute value.
     """
 
     return n if n >= 0 else -n
 
 
-print(abs_val(-100))
+print(f"{abs_val(-100) = }")
 
 
 # IMPORT MODULES
 # --------------
-from typing import List
 
 
 # Squares using for-loop
-def squares(n: int) -> List[int]:
+def squares(n: int) -> list[int]:
     """Return a list of `n` squared numbers starting from 1.
 
     Args:
-        - `n` (`int`): The count of squares to return in the list
+        - `n` (`int`): The count of squares to return in the list.
 
     Returns:
-        `List[int]`: List containing the squares
+        - `list[int]`: List containing the squares.
     """
 
     # Declare and initialize variables
-    squares: List[int] = []
+    squares: list[int] = []
 
     for k in range(1, n + 1):
         squares.append(k * k)
@@ -816,18 +824,17 @@ print(squares(10))
 
 # IMPORT MODULES
 # --------------
-from typing import List
 
 
 # Squares using List Comprehension
-def squares_comp(n: int) -> List[int]:
+def squares_comp(n: int) -> list[int]:
     """Return a list of `n` squared numbers starting from 1.
 
     Args:
-        - `n` (`int`): The count of squares to return in the list
+        - `n` (`int`): The count of squares to return in the list.
 
     Returns:
-        `List[int]`: List containing the squares
+        - `list[int]`: List containing the squares.
     """
     return [k * k for k in range(1, n + 1)]
 
@@ -837,18 +844,17 @@ print(squares_comp(10))
 
 # IMPORT MODULES
 # --------------
-from typing import List
 
 
 # List of factors for a given integer
-def factors_func_2(n: int) -> List[int]:
+def factors_func_2(n: int) -> list[int]:
     """A traditional function that computes factors.
 
     Args:
         - `n` (`int`): The integer that we want to compute the factors of.
 
     Returns:
-        `List[int]`: The factors of the given number.
+        - `list[int]`: The factors of the given number.
     """
 
     return [k for k in range(1, n + 1) if n % k == 0]
@@ -866,6 +872,8 @@ print({k * k for k in range(10)})
 
 
 # Generator comprehension using ()
+from typing import Generator
+
 gen_int: Generator[int, None, None] = (k * k for k in range(10))
 
 for x in gen_int:
@@ -885,7 +893,7 @@ def simple_return() -> Tuple[int, ...]:
     """Return a demo packed tuple.
 
     Returns:
-        `Tuple[int]`: A tuple of integers
+        - `Tuple[int]`: A tuple of integers.
     """
     return 1, 2, 3, 4
 
@@ -893,27 +901,20 @@ def simple_return() -> Tuple[int, ...]:
 # Declaring the variables types in advance
 a: int
 b: int
-c: int
-d: int
+rest: list[int]
 
 # Tuple-unpacking values from a function
-a, b, c, d = simple_return()
-# a = 1; b = 2; c = 3; d = 4
+a, b, *rest = simple_return()
+# a = 1; b = 2; rest = [3, 4]
 
-print(a, b, c, d)
-
-
-a, b = divmod(94, 5)
-print(a, b)
+print(a, b, rest)
 
 
-from typing import Any
-
-person: dict[str, Any] = {"fname": "John", "lname": "Appleseed", "age": 30}
+person: dict[str, str | int] = {"fname": "John", "lname": "Appleseed", "age": 30}
 
 # Tuple-unpacking values from a dictionary
 for k, v in person.items():
-    print(k, v)
+    print(k, "-->", v)
 
 
 # Declaring the variable types in advance
@@ -924,7 +925,9 @@ z0: int
 # Simultaneous assignment
 x0, y0, z0 = 6, 2, 5
 
-print(x0, y0, z0)
+print(f"{x0 = }")
+print(f"{y0 = }")
+print(f"{z0 = }")
 
 
 print("Before:", x0, y0)
@@ -944,11 +947,14 @@ x0 = temp
 print("After:", x0, y0)
 
 
+from typing import Generator
+
+
 def fibonacci_gen_2() -> Generator[int, None, None]:
-    """A generator of fibonaci sequence
+    """A generator of fibonaci sequence.
 
     Yields:
-        `Generator[int, None, None]`: The sequence of Fibonacci numbers
+        - `Generator[int, None, None]`: The sequence of Fibonacci numbers.
     """
     # Declare variables
     a: int
@@ -957,8 +963,9 @@ def fibonacci_gen_2() -> Generator[int, None, None]:
     # Initialize variable
     a, b = 0, 1
 
-    while True:  # keep going...
-        yield a  # report value, a, during this pass
+    while True:
+        # Report value a during this pass
+        yield a
         a, b = b, a + b
 
 
