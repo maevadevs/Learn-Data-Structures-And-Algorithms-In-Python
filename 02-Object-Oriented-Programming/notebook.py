@@ -14,8 +14,8 @@ def scale_complete(data: list[int], factor: int) -> None:
     """Multiply all entries of numeric data list by the given factor.
 
     Args:
-        - `data` (`list[int]`): The list of integers to scale
-        - `factor` (`int`): The multiplicative factor by which we want to scale the data
+        - `data` (`list[int]`): The list of integers to scale.
+        - `factor` (`int`): The multiplicative factor by which we want to scale the data.
 
     Returns: `None`
 
@@ -24,12 +24,12 @@ def scale_complete(data: list[int], factor: int) -> None:
     This is a very simple implementation of a scaling function for demo-purposes.
     In a real-world scenario, we may want to add much more additional features to this function.
 
-    As the function is currently written, it will accept any *Sequence*-type of integer for the `data`, such as a string of integers.
+    As the function is currently written, it will accept any Sequence-type of integer for the `data`, such as a string of integers.
 
     `data` is a list of integer that is passed to the function by reference.
     Thus, we apply the transformation on this object directly and there is nothing to return from the function.
 
-    Note that we are currently not doing any error-checking on this function. If we did, the *Raises* section would have some value.
+    Note that we are currently not doing any error-checking on this function. If we did, the Raises section would have some value.
     """
 
     # `data` is a list of integer that is passed by reference
@@ -38,33 +38,33 @@ def scale_complete(data: list[int], factor: int) -> None:
         data[j] *= factor
 
 
+from decimal import Decimal
+
 """
 Module: credit_card.py
-This is a simple implementation of a CreditCard class.
+This is a simple implementation of a CreditCard class. We use Decimal for all numbers.
 """
 
 
-# DEFINE CLASS
-# ------------
 class CreditCard:
-    """A consumer credit card class"""
+    """A consumer credit card class."""
 
     def __init__(
         self,
         customer: str,
         bank: str,
         account: str,
-        limit: float,
-        starting_balance: float = 0,
+        limit: Decimal,
+        starting_balance: Decimal = Decimal(0),
     ) -> None:
         """Create a new credit card instance with zero initial balance (default).
 
         Args:
-            - `customer` (`string`): The name of the customer
-            - `bank` (`string`): The name of the bank
-            - `account` (`string`): The account identifier
-            - `limit` (`float`): The credit limit
-            - `starting_balance` (`float`): The starting balance of the account
+            - `customer` (`string`): The name of the customer.
+            - `bank` (`string`): The name of the bank.
+            - `account` (`string`): The account identifier.
+            - `limit` (`Decimal`): The credit limit.
+            - `starting_balance` (`Decimal`): The starting balance of the account.
 
         Returns:
             - `None`
@@ -72,8 +72,8 @@ class CreditCard:
         self._customer: str = customer
         self._bank: str = bank
         self._account: str = account
-        self._limit: float = limit
-        self._balance: float = starting_balance
+        self._limit: Decimal = limit
+        self._balance: Decimal = starting_balance
 
     def get_customer(self) -> str:
         """Return the name of the customer on the credit card.
@@ -82,7 +82,7 @@ class CreditCard:
             - `None`
 
         Returns:
-            - `str`: The name of the customer on the credit card
+            - `str`: The name of the customer on the credit card.
         """
         return self._customer
 
@@ -93,7 +93,7 @@ class CreditCard:
             - `None`
 
         Returns:
-            - `str`: The name of the bank on the credit card
+            - `str`: The name of the bank on the credit card.
         """
         return self._bank
 
@@ -104,11 +104,11 @@ class CreditCard:
             - `None`
 
         Returns:
-            - `str`: The account identifier on the card
+            - `str`: The account identifier on the card.
         """
         return self._account
 
-    def get_limit(self) -> float:
+    def get_limit(self) -> Decimal:
         """Return the current limit of the credit card.
 
         Args:
@@ -119,7 +119,7 @@ class CreditCard:
         """
         return self._limit
 
-    def get_balance(self) -> float:
+    def get_balance(self) -> Decimal:
         """Return the current balance of the credit card.
 
         Args:
@@ -130,27 +130,27 @@ class CreditCard:
         """
         return self._balance
 
-    def charge(self, price: float) -> bool:
-        """Charge given price to the card, assuming sufficient credit limit.
+    def charge(self, price: Decimal) -> bool:
+        """Charge given price to the card if there is sufficient credit limit.
 
         Args:
-            - `price` (`float`): The price of the item being charged to the credit card.
+            - `price` (`Decimal`): The price of the item being charged to the credit card.
 
         Returns:
             - `bool`: `True` if charge was processed. `False` if charge was denied.
         """
-        # if charge would exceed limit, cannot accept charge
+        # If charge would exceed limit, cannot accept charge
         if price + self._balance > self._limit:
             return False
         else:
             self._balance += price
             return True
 
-    def make_payment(self, amount: float) -> None:
+    def make_payment(self, amount: Decimal) -> None:
         """Process customer payment that reduces balance.
 
         Args:
-            - `amount` (`float`): The amount that the customer is paying
+            - `amount` (`float`): The amount that the customer is paying.
 
         Returns:
             - `None`
@@ -158,21 +158,23 @@ class CreditCard:
         self._balance -= amount
 
 
+from decimal import Decimal
+
 # Calling the class constructor to create a new instance of CreditCard
 # --------------------------------------------------------------------
-cc1: CreditCard = CreditCard("John Doe", "First Bank", "5432 1098 7654 3210", 1000)
+cc1: CreditCard = CreditCard(
+    "John Doe", "First Bank", "5432.1098.7654.3210", Decimal(1000)
+)
 cc2: CreditCard = CreditCard(
     customer="Mary Bell",
     bank="Chase",
-    account="0987 6543 2109 8765",
-    limit=500,
-    starting_balance=100,
+    account="0987.6543.2109.8765",
+    limit=Decimal(500),
+    starting_balance=Decimal("100.1455"),
 )
 
-print(f"CC1 Customer: {cc1.get_customer()}")
-print(f"CC1 Balance: {cc1.get_balance()}")
-print(f"CC2 Customer: {cc2.get_customer()}")
-print(f"CC2 Balance: {cc2.get_balance()}")
+print(f"CC1 Customer: {cc1.get_customer()}. Balance: ${cc1.get_balance():.2f}")
+print(f"CC2 Customer: {cc2.get_customer()}. Balance: ${cc2.get_balance():.2f}")
 
 
 if __name__ == "__main__":
@@ -181,20 +183,26 @@ if __name__ == "__main__":
 
     # Append credit cards to the wallet
     wallet.append(
-        CreditCard("John Bowman", "California Savings", "5391 0375 9387 5309", 2500)
+        CreditCard(
+            "John Bowman", "California Savings", "5391 0375 9387 5309", Decimal(2500)
+        )
     )
     wallet.append(
-        CreditCard("John Bowman", "California Federal", "3485 0399 3395 1954", 3500)
+        CreditCard(
+            "John Bowman", "California Federal", "3485 0399 3395 1954", Decimal(3500)
+        )
     )
     wallet.append(
-        CreditCard("John Bowman", "California Finance", "5391 0375 9387 5309", 5000)
+        CreditCard(
+            "John Bowman", "California Finance", "5391 0375 9387 5309", Decimal(5000)
+        )
     )
 
     # Test charge
     for val in range(1, 17):
-        wallet[0].charge(val)
-        wallet[1].charge(2 * val)
-        wallet[2].charge(3 * val)
+        wallet[0].charge(Decimal(val))
+        wallet[1].charge(2 * Decimal(val))
+        wallet[2].charge(3 * Decimal(val))
 
     # Test methods on all credit cards
     for c in range(3):
@@ -204,8 +212,8 @@ if __name__ == "__main__":
         print(f"Limit = {wallet[c].get_limit()}")
         print(f"Balance = {wallet[c].get_balance()}")
 
-        while wallet[c].get_balance() > 100:
-            wallet[c].make_payment(100)
+        while wallet[c].get_balance() > Decimal(100):
+            wallet[c].make_payment(Decimal(100))
             print(f"New balance = {wallet[c].get_balance()}")
 
         print()
@@ -221,10 +229,10 @@ class Vector:
     """Represent a vector in a multidimensional space."""
 
     def __init__(self, d: int) -> None:
-        """Create a d-dimensional vector of zeros.
+        """Create a `d`-dimensional vector of zeros.
 
         Args:
-            - `d` (`int`): The dimension of the vector
+            - `d` (`int`): The dimension of the vector.
         """
         self._coords: list[int] = [0] * d
 
@@ -232,27 +240,27 @@ class Vector:
         """Return the dimension of the vector.
 
         Returns:
-            - `int`: The length of the vector
+            - `int`: The length of the vector.
         """
         return len(self._coords)
 
     def __getitem__(self, j: int) -> int:
-        """Return the jth coordinate of vector.
+        """Return the `j`-th coordinate of vector.
 
         Args:
-            - `j` (`int`): The rank of the coordinate to find
+            - `j` (`int`): The rank of the coordinate to find.
 
         Returns:
-            - `int`: The coordinate of the vector
+            - `int`: The coordinate of the vector.
         """
         return self._coords[j]
 
     def __setitem__(self, j: int, val: int) -> None:
-        """Set the jth coordinate of vector to a given value.
+        """Set the `j`-th coordinate of vector to a given value.
 
         Args:
-            - `j` (`int`): The rank of the coordinate to set
-            - `val` (`int`): The value to set
+            - `j` (`int`): The rank of the coordinate to set.
+            - `val` (`int`): The value to set.
         """
         self._coords[j] = val
 
@@ -260,76 +268,103 @@ class Vector:
         """Return the sum of two vectors.
 
         Args:
-            - `other` (`Vector`): The other vector to add to the current instance
+            - `other` (`Vector`): The other vector to add to the current instance.
+
+        Raises:
+            -  `NotImplementedError`: Raised when `other` is not a `Vector` object.
 
         Returns:
-            - `Vector`: A new vector that is the sum of the 2 vector parameters
+            - `Vector`: A new vector that is the sum of the 2 vector parameters.
 
         Assuming the two operands are vectors with the same length, this method creates
         a new vector and sets the coordinates of the new vector to be equal to the respective
         sum of the operands' elements.
         """
-        if len(self) != len(other):  # relies on len method
-            raise ValueError("Dimensions must agree")
+        if not isinstance(other, Vector):
+            raise NotImplementedError("This functionality is not supported.")
 
-        result: Vector = Vector(len(self))  # start with vector of zeros
+        # Relies on len method
+        if len(self) != len(other):
+            raise ValueError("Dimensions must agree.")
+
+        # Start with a vector of zeros
+        result: Vector = Vector(len(self))
         for j in range(len(self)):
             result[j] = self[j] + other[j]
 
         return result
 
     def __eq__(self, other: object) -> bool:
-        """Return True if the vector has the same coordinates as the other vector.
+        """Return `True` if the vector has the same coordinates as the other vector.
 
         Args:
-            - `other` (`object`): The other object to check the equality to the current Vector instance
+            - `other` (`object`): The other object to check the equality to the current `Vector` instance.
 
         Raises:
-            -  `NotImplementedError`: Raised when `other` is not a vector object.
+            -  `NotImplementedError`: Raised when `other` is not a `Vector` object.
 
         Returns:
-            - `bool`: Whether the current instance and the other object are equal
+            - `bool`: Whether the current instance and the other object are equal.
         """
         if not isinstance(other, Vector):
-            raise NotImplementedError("This functionality is not supported")
+            raise NotImplementedError("This functionality is not supported.")
 
         return self._coords == other._coords
 
     def __ne__(self, other: object) -> bool:
-        """Return True if vector differs from other.
+        """Return `True` if vector differs from other.
 
         Args:
-            - `other` (`object`): The other object to check the non-equality to the current Vector instance
+            - `other` (`object`): The other object to check the non-equality to the current Vector instance.
 
         Raises:
             -  `NotImplementedError`: Raised when `other` is not a vector object.
 
         Returns:
-            - `bool`: Whether the current instance and the other object are not equal
+            - `bool`: Whether the current instance and the other object are not equal.
         """
         if not isinstance(other, Vector):
-            raise NotImplementedError("This functionality is not supported")
+            raise NotImplementedError("This functionality is not supported.")
 
-        return not self == other  # rely on existing eq definition
+        return not self == other  # Rely on existing __eq__ definition
 
     def __str__(self) -> str:
         """Produce string representation of vector.
 
         Returns:
-            - `str`: The string representation of the vector
+            - `str`: The string representation of the vector.
         """
-        return f"<{str(self._coords)[1:-1]}>"  # adapt list representation
+        # Adapt list representation
+        return f"<{str(self._coords)[1:-1]}>"
+
+    def __repr__(self) -> str:
+        """Produce string representation of vector.
+
+        Returns:
+            - `str`: The string representation of the vector.
+        """
+        # Adapt list representation
+        return f"<{str(self._coords)[1:-1]}>"
 
 
 # Testing a vector
-v: Vector = Vector(5)  # construct five-dimensional <0, 0, 0, 0, 0>
-v[1] = 23  # <0, 23, 0, 0, 0> (based on use of __setitem__)
-v[-1] = 45  # <0, 23, 0, 0, 45> (also via __setitem__)
-print(v[4])  # print 45 (via __getitem__)
+
+# Construct five-dimensional <0, 0, 0, 0, 0>
+vec: Vector = Vector(5)
+
+# <0, 23, 0, 0, 0> (based on use of __setitem__)
+vec[1] = 23
+
+# <0, 23, 0, 0, 45> (also via __setitem__)
+vec[-1] = 45
+
+print(f"{vec = }")
+print(f"{vec[4] = }")  # (via __getitem__)
 
 
-u: Vector = v + v  # <0, 46, 0, 0, 90> (via __add__)
-print(u)  # print <0, 46, 0, 0, 90>
+# <0, 46, 0, 0, 90> (via __add__)
+u: Vector = vec + vec
+print(f"{u = }")
 
 
 total: int = 0
@@ -337,9 +372,9 @@ total: int = 0
 # implicit iteration via len and getitem
 # However, this is currently not compatible with mypy
 # It is better to implement `__iter__` directly
-# for entry in v:
+# for entry in vec:
 #     total += entry
-# print(entry)
+# print(f"{total = }"")
 
 
 """
@@ -361,31 +396,37 @@ class SequenceIterator:
         """Create an iterator for the given sequence.
 
         Args:
-            - `sequence` (`Sequence[Any]`): The sequence to create an iterator for
+            - `sequence` (`Sequence[Any]`): The sequence to create an iterator for.
         """
-        self._seq: Sequence[Any] = sequence  # keep a reference to the underlying data
-        self._k: int = -1  # will increment to 0 on first call to next
+        # Keep a reference to the underlying data
+        self._seq: Sequence[Any] = sequence
+        # Will increment to 0 on first call to next
+        self._k: int = -1
 
     def __next__(self) -> Any:
-        """Return the next element, or else raise StopIteration error.
+        """Return the next element, or else raise `StopIteration` error.
 
         Raises:
-            - `StopIteration`: Raised when there are no more elements in the iterator
+            - `StopIteration`: Raised when there are no more elements in the iterator.
 
         Returns:
-            - `Any`: The element from the iterator
+            - `Any`: The element from the iterator.
         """
-        self._k += 1  # advance to next index
+        # Advance to next index
+        self._k += 1
+
         if self._k < len(self._seq):
-            return self._seq[self._k]  # return the data element
+            # Return the data element
+            return self._seq[self._k]
         else:
-            raise StopIteration()  # there are no more elements
+            # There are no more elements
+            raise StopIteration()
 
     def __iter__(self) -> "SequenceIterator":
         """By convention, an iterator must return itself as an iterator.
 
         Returns:
-            - `SequenceIterator`: The iterator instance
+            - `SequenceIterator`: The iterator instance.
         """
         return self
 
@@ -409,20 +450,22 @@ class Range:
         """Initialize a Range instance.
 
         Args:
-            - `start` (`int`): The starting point of the range
-            - `stop` (`Optional[int]`, optional): The stopping point of the range. Defaults to `None`
-            - `step` (`int`, optional): The step of the range. Defaults to `1`
+            - `start` (`int`): The starting point of the range.
+            - `stop` (`Optional[int]`, optional): The stopping point of the range. Defaults to `None`.
+            - `step` (`int`, optional): The step of the range. Defaults to `1`.
 
         Raises:
             - `ValueError`: Raised if the `step` is set to `0`
 
-        Semantics is similar to built-in range class.
+        Semantics is similar to built-in `range` class.
         """
         if step == 0:
-            raise ValueError("step cannot be 0")
+            raise ValueError("step cannot be 0.")
 
-        if stop is None:  # Special case of range(n)
-            start, stop = 0, start  # Should be treated as if range(0,n)
+        # Special case of range(n)
+        if stop is None:
+            # Should be treated as if range(0,n)
+            start, stop = 0, start
 
         # Calculate the effective length once
         self._length: int = max(0, (stop - start + step - 1) // step)
@@ -435,73 +478,141 @@ class Range:
         """Return number of entries in the range.
 
         Returns:
-            - `int`: The number of entries in the range
+            - `int`: The number of entries in the range.
         """
         return self._length
 
     def __getitem__(self, k: int) -> int:
-        """Return entry at index k (using standard interpretation if negative).
+        """Return entry at index `k` (using standard interpretation if negative).
 
         Args:
-            - `k` (`int`): The index that we want to get the item of
+            - `k` (`int`): The index that we want to get the item of.
 
         Raises:
-            - `IndexError`: Raised when `k < 0` or `k > self._length`
+            - `IndexError`: Raised when `k < 0` or `k > self._length`.
 
         Returns:
-            - `int`: The entry at the given index
+            - `int`: The entry at the given index.
         """
         if k < 0:
-            k += len(self)  # Attempt to convert negative index
+            # Attempt to convert negative index
+            k += len(self)
 
         if not 0 <= k < self._length:
-            raise IndexError("index out of range")
+            raise IndexError("index out of range.")
 
         return self._start + k * self._step
 
 
+from decimal import Decimal
+
+
 class PredatoryCreditCard(CreditCard):
-    """An extension to CreditCard that compounds interest and fees."""
+    """An extension to `CreditCard` that compounds interest and fees."""
 
     def __init__(
-        self, customer: str, bank: str, acnt: str, limit: float, apr: float
+        self, customer: str, bank: str, accnt: str, limit: Decimal, apr: Decimal
     ) -> None:
-        """Create a new predatory credit card instance.
+        """Create a new `PredatoryCreditCard` instance.
 
         Args:
-            - `customer` (`str`): The name of the customer (e.g., John Bowman )
-            - `bank` (`str`): The name of the bank (e.g., California Savings )
-            - `acnt` (`str`): The acount identifier (e.g., 5391 0375 9387 5309 )
-            - `limit` (`float`): Credit limit (measured in dollars)
-            - `apr` (`float`): Annual percentage rate (e.g., 0.0825 for 8.25% APR)
+            - `customer` (`str`): The name of the customer (e.g., John Bowman).
+            - `bank` (`str`): The name of the bank (e.g., California Savings).
+            - `acnt` (`str`): The acount identifier (e.g., 5391 0375 9387 5309).
+            - `limit` (`float`): Credit limit (measured in dollars).
+            - `apr` (`float`): Annual percentage rate (e.g., 0.0825 for 8.25% APR).
 
         The initial balance is zero.
         """
-        super().__init__(customer, bank, acnt, limit)  # Call super constructor
-        self._apr: float = apr
+        # Call super constructor
+        super().__init__(customer=customer, bank=bank, account=accnt, limit=limit)
+        self._apr: Decimal = apr
 
-    def charge(self, price: float) -> bool:
+    def charge(self, price: Decimal) -> bool:
         """Charge a given price to the card, assuming sufficient credit limit.
 
         Args:
-            - `price` (`float`): The price that is charged to the credit card
+            - `price` (`Decimal`): The price that is charged to the credit card.
 
         Returns:
-            - `bool`: `True` if charge was processed, `False` and assess 5 fee if charge is denied
+            - `bool`: `True` if charge was processed, `False` and assess 5 fee if charge is denied.
         """
-        _success: bool = super().charge(price)  # Call inherited method
+        # Call inherited method
+        _success: bool = super().charge(price)
 
         if not _success:
-            self._balance += 5  # Assess penalty
+            # Assess penalty
+            self._balance += 5
 
-        return _success  # Caller expects return value
+        # Caller expects return value
+        return _success
 
     def process_month(self) -> None:
         """Assess monthly interest on outstanding balance."""
         if self._balance > 0:
             # If positive balance, convert APR to monthly multiplicative factor
-            monthly_factor: float = pow(1 + self._apr, 1 / 12)
+            monthly_factor: Decimal = Decimal(
+                f"{pow(1 + self._apr, Decimal(1) / Decimal(12))}"
+            )
             self._balance *= monthly_factor
+
+
+# UNIT TESTS
+# ----------
+if __name__ == "__main__":
+    # Variables
+    wallet2: list[PredatoryCreditCard] = []
+
+    # Append credit cards to the wallet
+    wallet2.append(
+        PredatoryCreditCard(
+            "John Bowman",
+            "California Savings",
+            "5391 0375 9387 5309",
+            Decimal(2500),
+            Decimal("0.0825"),
+        )
+    )
+    wallet2.append(
+        PredatoryCreditCard(
+            "John Bowman",
+            "California Federal",
+            "3485 0399 3395 1954",
+            Decimal(3500),
+            Decimal("0.0525"),
+        )
+    )
+    wallet2.append(
+        PredatoryCreditCard(
+            "John Bowman",
+            "California Finance",
+            "5391 0375 9387 5309",
+            Decimal(5000),
+            Decimal("0.0225"),
+        )
+    )
+
+    # Test charge
+    for val in range(1, 17):
+        wallet2[0].charge(Decimal(val))
+        wallet2[1].charge(2 * Decimal(val))
+        wallet2[2].charge(3 * Decimal(val))
+
+    # Test methods on all credit cards
+    for c in range(3):
+        print(f"Customer = {wallet2[c].get_customer()}")
+        print(f"Bank = {wallet2[c].get_bank()}")
+        print(f"Account = {wallet2[c].get_account()}")
+        print(f"Limit = {wallet2[c].get_limit()}")
+        print(f"Balance (Before Month Processing) = {wallet2[c].get_balance()}")
+        wallet2[c].process_month()
+        print(f"Balance (After Month Processing) = {wallet2[c].get_balance()}")
+
+        while wallet2[c].get_balance() > Decimal(100):
+            wallet2[c].make_payment(Decimal(100))
+            print(f"New balance = {wallet2[c].get_balance()}")
+
+        print()
 
 
 """
@@ -536,23 +647,27 @@ class Progression:
         """Return the next element, or else raise `StopIteration` error.
 
         Raises:
-            `StopIteration`: Raised when there are no more element and stops the iteration
+            `StopIteration`: Raised when there are no more element and stops the iteration.
 
         Returns:
-            - `int`: The next element in the iterator
+            - `int`: The next element in the iterator.
         """
-        if self._current is None:  # Our convention to end a progression
+        # Our convention to end a progression
+        if self._current is None:
             raise StopIteration()
         else:
-            answer: int = self._current  # Record current value to return
-            self._advance()  # Advance to prepare for next time
-            return answer  # Return the answer
+            # Record current value to return
+            answer: int = self._current
+            # Advance to prepare for next time
+            self._advance()
+            # Return the answer
+            return answer
 
     def __iter__(self) -> "Progression":
-        """By convention, an iterator must return itself as an iterator
+        """By convention, an iterator must return itself as an iterator.
 
         Returns:
-            - `Progression`: This progression instance
+            - `Progression`: This progression instance.
         """
         return self
 
@@ -560,12 +675,12 @@ class Progression:
         """Print next `n` values of the progression.
 
         Args:
-            - `n` (`int`): The next `n` values of the progression to print
+            - `n` (`int`): The next `n` values of the progression to print.
         """
         print(" ".join(str(next(self)) for _ in range(n)))
 
 
-class ArithmeticProgression(Progression):  # Inherit from Progression
+class ArithmeticProgression(Progression):
     """Iterator producing an arithmetic progression."""
 
     def __init__(self, increment: int = 1, start: int = 0) -> None:
@@ -575,7 +690,8 @@ class ArithmeticProgression(Progression):  # Inherit from Progression
             - `increment` (`int`, optional): The fixed constant to add to each term. Defaults to `1`.
             - `start` (`int`, optional): The first term of the progression. Defaults to `0`.
         """
-        super().__init__(start)  # Initialize base class
+        # Initialize base class
+        super().__init__(start)
         self._increment: int = increment
 
     def _advance(self) -> None:  # Override inherited version
@@ -583,7 +699,7 @@ class ArithmeticProgression(Progression):  # Inherit from Progression
         self._current += self._increment
 
 
-class GeometricProgression(Progression):  # Inherit from Progression
+class GeometricProgression(Progression):
     """Iterator producing a geometric progression."""
 
     def __init__(self, base: int = 2, start: int = 1) -> None:
@@ -611,8 +727,10 @@ class FibonacciProgression(Progression):
             - `first` (`int`, optional): The first term of the progression. Defaults to `0`.
             - `second` (`int`, optional): The second term of the progression. Defaults to `1`.
         """
-        super().__init__(first)  # Start progression at first
-        self._prev: int = second - first  # Fictitious value preceding the first
+        # Start progression at first
+        super().__init__(first)
+        # Fictitious value preceding the first
+        self._prev: int = second - first
 
     def _advance(self) -> None:
         """Update current value by taking sum of previous two."""
@@ -644,13 +762,13 @@ if __name__ == "__main__":
 
 # IMPORT MODULES
 # --------------
-from abc import ABCMeta, abstractmethod  # need these definitions
+from abc import ABCMeta, abstractmethod  # Need these definitions
 from typing import Any
 
 
 # DEFINE CLASS
 # ------------
-class SequenceCustom(metaclass=ABCMeta):
+class AbSequence(metaclass=ABCMeta):
     """Our own version of collections.Sequence abstract base class."""
 
     @abstractmethod
@@ -659,98 +777,111 @@ class SequenceCustom(metaclass=ABCMeta):
 
     @abstractmethod
     def __getitem__(self, j: int) -> Any:
-        """Return the element at index j of the sequence."""
+        """Return the element at index `j` of the sequence."""
 
+    # Concrete Method: Template Method
     def __contains__(self, val: Any) -> bool:
-        """Return True if val found in the sequence. False otherwise."""
+        """Return `True` if `val` found in the sequence. `False` otherwise."""
         for j in range(len(self)):
-            if self[j] == val:  # found match
+            if self[j] == val:
+                # Found match
                 return True
         return False
 
+    # Concrete Method: Template Method
     def index(self, val: Any) -> int:
-        """Return leftmost index at which val is found (or raise ValueError)."""
+        """Return leftmost index at which `val` is found (or raise `ValueError`)."""
         for j in range(len(self)):
-            if self[j] == val:  # leftmost match
+            if self[j] == val:
+                # Leftmost match
                 return j
-        raise ValueError("value not in sequence")  # never found a match
+        # Never found a match
+        raise ValueError("value not in sequence.")
 
+    # Concrete Method: Template Method
     def count(self, val: Any) -> int:
         """Return the number of elements equal to given value."""
         k: int = 0
         for j in range(len(self)):
-            if self[j] == val:  # found a match
+            if self[j] == val:
+                # Found a match
                 k += 1
         return k
 
 
 # IMPORT MODULES
 # --------------
+from decimal import Decimal
 from typing import Final
 
 
 # DEFINE CLASS
 # ------------
 class PredatoryCreditCardV2(CreditCard):
-    """An extension to CreditCard that compounds interest and fees."""
+    """An extension to `CreditCard` that compounds interest and fees."""
 
     # Class Data Members
     # ------------------
-    OVERLIMIT_FEE: Final[float] = 5.00
+    _OVERLIMIT_FEE: Final[Decimal] = Decimal(5)
 
     # Class Methods
     # -------------
     def __init__(
-        self, customer: str, bank: str, acnt: str, limit: float, apr: float
+        self, customer: str, bank: str, accnt: str, limit: Decimal, apr: Decimal
     ) -> None:
         """Create a new predatory credit card instance.
 
         Args:
-            - `customer` (`str`): The name of the customer (e.g., John Bowman )
-            - `bank` (`str`): The name of the bank (e.g., California Savings )
-            - `acnt` (`str`): The acount identifier (e.g., 5391 0375 9387 5309 )
-            - `limit` (`float`): Credit limit (measured in dollars)
-            - `apr` (`float`): Annual percentage rate (e.g., 0.0825 for 8.25% APR)
+            - `customer` (`str`): The name of the customer (e.g., John Bowman).
+            - `bank` (`str`): The name of the bank (e.g., California Savings).
+            - `accnt` (`str`): The acount identifier (e.g., 5391 0375 9387 5309).
+            - `limit` (`float`): Credit limit (measured in dollars).
+            - `apr` (`float`): Annual percentage rate (e.g., 0.0825 for 8.25% APR).
 
         The initial balance is zero.
         """
-        super().__init__(customer, bank, acnt, limit)  # call super constructor
-        self._apr: float = apr
+        super().__init__(customer, bank, accnt, limit)  # call super constructor
+        self._apr: Decimal = apr
 
-    def charge(self, price: float) -> bool:
+    def charge(self, price: Decimal) -> bool:
         """Charge given price to the card, assuming sufficient credit limit.
 
         Args:
-            - `price` (`float`): The price that is charged to the credit card
+            - `price` (`float`): The price that is charged to the credit card.
 
         Returns:
-            - `bool`: `True` if charge was processed, `False` and assess 5 fee if charge is denied
+            - `bool`: `True` if charge was processed, `False` and assess 5 fee if charge is denied.
         """
-        _success: bool = super().charge(price)  # call inherited method
+        # Call inherited method
+        _success: bool = super().charge(price)
 
         if not _success:
-            self._balance += PredatoryCreditCardV2.OVERLIMIT_FEE  # assess penalty
+            # Assess penalty
+            self._balance += PredatoryCreditCardV2._OVERLIMIT_FEE
 
-        return _success  # caller expects return value
+        # Caller expects return value
+        return _success
 
     def process_month(self) -> None:
         """Assess monthly interest on outstanding balance."""
         if self._balance > 0:
-            # if positive balance, convert APR to monthly multiplicative factor
-            monthly_factor: float = pow(1 + self._apr, 1 / 12)
+            # If positive balance, convert APR to monthly multiplicative factor
+            monthly_factor: Decimal = Decimal(
+                f"{pow(1 + self._apr, Decimal(1) / Decimal(12))}"
+            )
             self._balance *= monthly_factor
 
 
 class Color:
-    """A class representing a color"""
+    """A class representing a color using RGB."""
 
     def __init__(self, r: int, g: int, b: int) -> None:
         """Create a new instance of Color.
 
         Args:
-            - `r (`int`): The value for the Red
-            - `g` (`int`): The value for the Green
-            - `b` (`int`): The value for the Blue
+            - `r (`int`): The value for Red.
+            - `g` (`int`): The value for Green.
+            - `b` (`int`): The value for Blue.
         """
         self._r: int = r
         self._g: int = g
@@ -760,7 +891,7 @@ class Color:
         """Returns a string representing the color.
 
         Returns:
-            - `str`: A string representing the color
+            - `str`: A string representing the color.
         """
         return f"Color({self._r}, {self._g}, {self._b})"
 
@@ -768,14 +899,14 @@ class Color:
         """Returns a string representing the color.
 
         Returns:
-            - `str`: A string representing the color
+            - `str`: A string representing the color.
         """
         return f"Color({self._r}, {self._g}, {self._b})"
 
 
-# A list of warmtone colors
-warmtones: list[Color] = [Color(249, 124, 43), Color(169, 163, 52)]  # Orange  # Brown
-print(warmtones)
+# A list of warmtone colors: Orange, Brown
+warmtones: list[Color] = [Color(249, 124, 43), Color(169, 163, 52)]
+print(f"{warmtones = }")
 
 
 # Make palette a SHALLOW COPY of warmtone colors
@@ -783,7 +914,7 @@ print(warmtones)
 #   to modify or remove some of the existing colors, without affecting the contents of
 #   warmtones (Not an alias)
 warm_palette: list[Color] = list(warmtones)
-print(warm_palette)
+print(f"{warm_palette = }")
 
 
 # IMPORT MODULES

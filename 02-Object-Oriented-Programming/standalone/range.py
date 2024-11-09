@@ -17,20 +17,22 @@ class Range:
         """Initialize a Range instance.
 
         Args:
-            - `start` (`int`): The starting point of the range
-            - `stop` (`Optional[int]`, optional): The stopping point of the range. Defaults to `None`
-            - `step` (`int`, optional): The step of the range. Defaults to `1`
+            - `start` (`int`): The starting point of the range.
+            - `stop` (`Optional[int]`, optional): The stopping point of the range. Defaults to `None`.
+            - `step` (`int`, optional): The step of the range. Defaults to `1`.
 
         Raises:
             - `ValueError`: Raised if the `step` is set to `0`
 
-        Semantics is similar to built-in range class.
+        Semantics is similar to built-in `range` class.
         """
         if step == 0:
-            raise ValueError("step cannot be 0")
+            raise ValueError("step cannot be 0.")
 
-        if stop is None:  # Special case of range(n)
-            start, stop = 0, start  # Should be treated as if range(0,n)
+        # Special case of range(n)
+        if stop is None:
+            # Should be treated as if range(0,n)
+            start, stop = 0, start
 
         # Calculate the effective length once
         self._length: int = max(0, (stop - start + step - 1) // step)
@@ -43,26 +45,27 @@ class Range:
         """Return number of entries in the range.
 
         Returns:
-            - `int`: The number of entries in the range
+            - `int`: The number of entries in the range.
         """
         return self._length
 
     def __getitem__(self, k: int) -> int:
-        """Return entry at index k (using standard interpretation if negative).
+        """Return entry at index `k` (using standard interpretation if negative).
 
         Args:
-            - `k` (`int`): The index that we want to get the item of
+            - `k` (`int`): The index that we want to get the item of.
 
         Raises:
-            - `IndexError`: Raised when `k < 0` or `k > self._length`
+            - `IndexError`: Raised when `k < 0` or `k > self._length`.
 
         Returns:
-            - `int`: The entry at the given index
+            - `int`: The entry at the given index.
         """
         if k < 0:
-            k += len(self)  # Attempt to convert negative index
+            # Attempt to convert negative index
+            k += len(self)
 
         if not 0 <= k < self._length:
-            raise IndexError("index out of range")
+            raise IndexError("index out of range.")
 
         return self._start + k * self._step

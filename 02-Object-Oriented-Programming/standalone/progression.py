@@ -32,23 +32,27 @@ class Progression:
         """Return the next element, or else raise `StopIteration` error.
 
         Raises:
-            `StopIteration`: Raised when there are no more element and stops the iteration
+            `StopIteration`: Raised when there are no more element and stops the iteration.
 
         Returns:
-            - `int`: The next element in the iterator
+            - `int`: The next element in the iterator.
         """
-        if self._current is None:  # Our convention to end a progression
+        # Our convention to end a progression
+        if self._current is None:
             raise StopIteration()
         else:
-            answer: int = self._current  # Record current value to return
-            self._advance()  # Advance to prepare for next time
-            return answer  # Return the answer
+            # Record current value to return
+            answer: int = self._current
+            # Advance to prepare for next time
+            self._advance()
+            # Return the answer
+            return answer
 
     def __iter__(self) -> "Progression":
-        """By convention, an iterator must return itself as an iterator
+        """By convention, an iterator must return itself as an iterator.
 
         Returns:
-            - `Progression`: This progression instance
+            - `Progression`: This progression instance.
         """
         return self
 
@@ -56,14 +60,14 @@ class Progression:
         """Print next `n` values of the progression.
 
         Args:
-            - `n` (`int`): The next `n` values of the progression to print
+            - `n` (`int`): The next `n` values of the progression to print.
         """
         print(" ".join(str(next(self)) for _ in range(n)))
 
 
 # IMPLEMENT CLASS
 # ---------------
-class ArithmeticProgression(Progression):  # Inherit from Progression
+class ArithmeticProgression(Progression):
     """Iterator producing an arithmetic progression."""
 
     def __init__(self, increment: int = 1, start: int = 0) -> None:
@@ -73,7 +77,8 @@ class ArithmeticProgression(Progression):  # Inherit from Progression
             - `increment` (`int`, optional): The fixed constant to add to each term. Defaults to `1`.
             - `start` (`int`, optional): The first term of the progression. Defaults to `0`.
         """
-        super().__init__(start)  # Initialize base class
+        # Initialize base class
+        super().__init__(start)
         self._increment: int = increment
 
     def _advance(self) -> None:  # Override inherited version
@@ -83,7 +88,7 @@ class ArithmeticProgression(Progression):  # Inherit from Progression
 
 # IMPLEMENT CLASS
 # ---------------
-class GeometricProgression(Progression):  # Inherit from Progression
+class GeometricProgression(Progression):
     """Iterator producing a geometric progression."""
 
     def __init__(self, base: int = 2, start: int = 1) -> None:
@@ -113,8 +118,10 @@ class FibonacciProgression(Progression):
             - `first` (`int`, optional): The first term of the progression. Defaults to `0`.
             - `second` (`int`, optional): The second term of the progression. Defaults to `1`.
         """
-        super().__init__(first)  # Start progression at first
-        self._prev: int = second - first  # Fictitious value preceding the first
+        # Start progression at first
+        super().__init__(first)
+        # Fictitious value preceding the first
+        self._prev: int = second - first
 
     def _advance(self) -> None:
         """Update current value by taking sum of previous two."""
